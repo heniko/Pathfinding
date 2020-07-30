@@ -1,5 +1,6 @@
 package ui;
 
+import graph.Graph;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -21,8 +23,8 @@ public class GUI extends Application {
     /*
     0 = Empty
     1 = Start
-    3 = End
-    4 = Wall
+    2 = End
+    3 = Wall
      */
     private final Color[] NODE_COLORS = new Color[]{
         Color.WHITE,
@@ -31,12 +33,19 @@ public class GUI extends Application {
         Color.BLACK
     };
     private int selectedNodeType;
+    private int[][] state;
+    private Graph graph;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Pathfinding");
-        HBox root = new HBox();
+        Canvas canvas = new Canvas(SIZE_X * NODE_SIZE, SIZE_Y * NODE_SIZE);
+        gc = canvas.getGraphicsContext2D();
         selectedNodeType = 0;
+        state = new int[SIZE_X][SIZE_Y];
+        graph = new Graph(state, SIZE_X, SIZE_Y);
+        drawGrid();
+        drawNodes();
 
         // Radio buttons and toggle group for selecting node type
         RadioButton startNodeButton = new RadioButton("Start");
@@ -68,30 +77,18 @@ public class GUI extends Application {
             }
         });
 
-        VBox menuItems = new VBox(emptyNodeButton, startNodeButton, endNodeButton, wallNodeButton);
-
-        Canvas canvas = new Canvas(SIZE_X * NODE_SIZE, SIZE_Y * NODE_SIZE);
-        gc = canvas.getGraphicsContext2D();
-        drawGrid();
-
         canvas.setOnMouseDragged((event) -> {
-            int posX = (int) event.getX();
-            posX = posX / NODE_SIZE;
-            int posY = (int) event.getY();
-            posY = posY / NODE_SIZE;
-            drawNode(posX, posY);
+            changeNode(event);
+            drawNodes();
         });
 
         canvas.setOnMouseClicked((event) -> {
-            int posX = (int) event.getX();
-            posX = posX / NODE_SIZE;
-            int posY = (int) event.getY();
-            posY = posY / NODE_SIZE;
-            drawNode(posX, posY);
+            changeNode(event);
+            drawNodes();
         });
 
-        root.getChildren().add(canvas);
-        root.getChildren().add(menuItems);
+        VBox menuItems = new VBox(emptyNodeButton, startNodeButton, endNodeButton, wallNodeButton);
+        HBox root = new HBox(canvas, menuItems);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -110,8 +107,21 @@ public class GUI extends Application {
         }
     }
 
-    private void drawNode(int x, int y) {
-        gc.setFill(NODE_COLORS[selectedNodeType]);
-        gc.fillRect(x * NODE_SIZE + 1, y * NODE_SIZE + 1, NODE_SIZE - 2, NODE_SIZE - 2);
+    private void drawNodes() {
+        for (int x = 0; x < SIZE_X; x++) {
+            for (int y = 0; y < SIZE_Y; y++) {
+                gc.setFill(NODE_COLORS[state[x][y]]);
+                gc.fillRect(x * NODE_SIZE + 1, y * NODE_SIZE + 1, NODE_SIZE - 2, NODE_SIZE - 2);
+            }
+        }
+    }
+
+    private void changeNode(MouseEvent event) {
+        int posX = (int) event.getX() / NODE_SIZE;
+        int posY = (int) event.getY() / NODE_SIZE;
+        // Check added so dragging mouse outside canvas doesn't cause errors
+        if (posX > -1 && posY > -1 && posX < SIZE_X && posY < SIZE_Y) {
+            graph.changeNode(posX, posY, selectedNodeType);
+        }
     }
 }
