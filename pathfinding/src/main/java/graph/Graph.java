@@ -41,23 +41,27 @@ public final class Graph {
     }
 
     private void setStart(int x, int y) {
-        // Change old start to empty in guiState
-        guiState[startX][startY] = 0;
-        // Change isWall of new start to false since wall can't be over start
-        isWall[x][y] = false;
-        // Change start position
-        startX = x;
-        startY = y;
-        // Change start position in guiState
-        guiState[x][y] = 1;
+        if (!isEnd(x, y)) {
+            // Change old start to empty in guiState
+            guiState[startX][startY] = 0;
+            // Change isWall of new start to false since wall can't be over start
+            isWall[x][y] = false;
+            // Change start position
+            startX = x;
+            startY = y;
+            // Change start position in guiState
+            guiState[x][y] = 1;
+        }
     }
 
     private void setEnd(int x, int y) {
-        guiState[endX][endY] = 0;
-        isWall[x][y] = false;
-        endX = x;
-        endY = y;
-        guiState[x][y] = 2;
+        if (!isStart(x, y)) {
+            guiState[endX][endY] = 0;
+            isWall[x][y] = false;
+            endX = x;
+            endY = y;
+            guiState[x][y] = 2;
+        }
     }
 
     private void setWall(int x, int y) {
