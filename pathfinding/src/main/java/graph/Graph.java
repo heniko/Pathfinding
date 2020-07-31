@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public final class Graph {
 
-    int startX, startY, endX, endY, sizeX, sizeY;
-    int[][] guiState;
-    boolean[][] isWall;
+    private int startX, startY, endX, endY, sizeX, sizeY;
+    private int[][] guiState;
+    private boolean[][] isWall;
 
     /**
      * Constructor for Graph
@@ -22,16 +22,79 @@ public final class Graph {
      * @param sizeY Height of the graph
      */
     public Graph(int[][] guiState, int sizeX, int sizeY) {
-        startX = 0;
-        startY = 0;
-        endX = sizeX - 1;
-        endY = sizeY - 1;
+        this.startX = 0;
+        this.startY = 0;
+        this.endX = sizeX - 1;
+        this.endY = sizeY - 1;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.guiState = guiState;
         this.isWall = new boolean[sizeX][sizeY];
-        changeNode(startX, startY, 1);
-        changeNode(endX, endY, 2);
+        changeNode(this.startX, this.startY, 1);
+        changeNode(this.endX, this.endY, 2);
+    }
+
+    /**
+     * Gets isWall array
+     *
+     * @return 2d array that contains information about walls
+     */
+    public boolean[][] getIsWall() {
+        return isWall;
+    }
+
+    /**
+     * Gets width of the graph
+     *
+     * @return width of the graph
+     */
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    /**
+     * Gets height of the graph
+     *
+     * @return height of the graph
+     */
+    public int getSizeY() {
+        return sizeY;
+    }
+
+    /**
+     * Gets end x-coordinate
+     *
+     * @return end x-coordinate
+     */
+    public int getEndX() {
+        return endX;
+    }
+
+    /**
+     * Gets end y-coordinate
+     *
+     * @return end y-coordinate
+     */
+    public int getEndY() {
+        return endY;
+    }
+
+    /**
+     * Gets start x-coordinate
+     *
+     * @return start x-coordinate
+     */
+    public int getStartX() {
+        return startX;
+    }
+
+    /**
+     * Gets start y-coordinate
+     *
+     * @return start y-coordinate
+     */
+    public int getStartY() {
+        return startY;
     }
 
     /**
