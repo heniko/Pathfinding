@@ -3,12 +3,24 @@ package graph;
 import algorithms.AStar;
 import java.util.ArrayList;
 
+/**
+ * Handles changes to graph.
+ *
+ * @author Niko Hernesniemi
+ */
 public final class Graph {
 
     int startX, startY, endX, endY, sizeX, sizeY;
     int[][] guiState;
     boolean[][] isWall;
 
+    /**
+     * Constructor for Graph
+     *
+     * @param guiState
+     * @param sizeX Width of the graph
+     * @param sizeY Height of the graph
+     */
     public Graph(int[][] guiState, int sizeX, int sizeY) {
         startX = 0;
         startY = 0;
@@ -22,6 +34,14 @@ public final class Graph {
         changeNode(endX, endY, 2);
     }
 
+    /**
+     * Changes node type in given coordinates if change is valid
+     *
+     * @param x x-coordinate of change
+     * @param y y-coordinate of change
+     * @param type new type of node. 1 = start, 2 = end, 3 = wall and by default
+     * other values will change node to empty
+     */
     public void changeNode(int x, int y, int type) {
         /*
         0 = Empty
@@ -92,6 +112,10 @@ public final class Graph {
         return x == endX && y == endY;
     }
 
+    /**
+     * Solves graph with A*. Changes will be made to this method when other
+     * algorithms are added.
+     */
     public void solve() {
         Node start = new Node(startX, startY);
         Node end = new Node(endX, endY);

@@ -16,6 +16,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * Simple GUI for getting user input and visualising algorithms.
+ *
+ * @author Niko Hernesniemi
+ */
 public class GUI extends Application {
 
     // Constants for graph size

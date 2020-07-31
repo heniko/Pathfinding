@@ -38,6 +38,7 @@ public class AStar {
 
         // Start algorithms from start node
         gScore[start.getX()][start.getY()] = 0;
+        opened[start.getX()][start.getY()] = true;
         openList.add(new PriorityNode(start.getX(), start.getY(), heuristic(start.getX(), start.getY())));
 
         while (!openList.isEmpty()) {
@@ -46,7 +47,7 @@ public class AStar {
             int cy = current.getY();
 
             // Since the algorithm just adds new nodes of the same spot to heap
-            // instead of updating the values we may get the same node more than once.
+            // instead of updating the priority we may get the same node more than once.
             // There is no need to handle the same node more than once.
             if (closed[cx][cy]) {
                 continue;
