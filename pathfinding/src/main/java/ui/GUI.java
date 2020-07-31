@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
@@ -25,12 +26,14 @@ public class GUI extends Application {
     1 = Start
     2 = End
     3 = Wall
+    4 = Path
      */
     private final Color[] NODE_COLORS = new Color[]{
         Color.WHITE,
         Color.GREEN,
         Color.RED,
-        Color.BLACK
+        Color.BLACK,
+        Color.YELLOW
     };
     private int selectedNodeType;
     private int[][] state;
@@ -87,7 +90,13 @@ public class GUI extends Application {
             drawNodes();
         });
 
-        VBox menuItems = new VBox(emptyNodeButton, startNodeButton, endNodeButton, wallNodeButton);
+        Button solveButton = new Button("Solve");
+        solveButton.setOnAction((event) -> {
+            graph.solve();
+            drawNodes();
+        });
+
+        VBox menuItems = new VBox(emptyNodeButton, startNodeButton, endNodeButton, wallNodeButton, solveButton);
         HBox root = new HBox(canvas, menuItems);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

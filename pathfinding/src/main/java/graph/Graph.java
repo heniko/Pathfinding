@@ -1,5 +1,8 @@
 package graph;
 
+import algorithms.AStar;
+import java.util.ArrayList;
+
 public final class Graph {
 
     int startX, startY, endX, endY, sizeX, sizeY;
@@ -7,7 +10,8 @@ public final class Graph {
     boolean[][] isWall;
 
     public Graph(int[][] guiState, int sizeX, int sizeY) {
-        startX = startY = 0;
+        startX = 0;
+        startY = 0;
         endX = sizeX - 1;
         endY = sizeY - 1;
         this.sizeX = sizeX;
@@ -15,7 +19,7 @@ public final class Graph {
         this.guiState = guiState;
         this.isWall = new boolean[sizeX][sizeY];
         changeNode(startX, startY, 1);
-        changeNode(endX, endX, 2);
+        changeNode(endX, endY, 2);
     }
 
     public void changeNode(int x, int y, int type) {
@@ -86,5 +90,20 @@ public final class Graph {
 
     private boolean isEnd(int x, int y) {
         return x == endX && y == endY;
+    }
+
+    public void solve() {
+        Node start = new Node(startX, startY);
+        Node end = new Node(endX, endY);
+        AStar astar = new AStar(start, end, sizeX, sizeY, isWall);
+        ArrayList<Node> path = astar.solve();
+
+        for (Node node : path) {
+            int x = node.getX();
+            int y = node.getY();
+            if (!isStart(x, y) && !isEnd(x, y)) {
+                guiState[x][y] = 4;
+            }
+        }
     }
 }
