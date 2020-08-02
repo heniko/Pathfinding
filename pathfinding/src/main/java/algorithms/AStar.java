@@ -1,8 +1,10 @@
 package algorithms;
 
+import graph.ColouredNode;
 import graph.Node;
 import graph.PriorityNode;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public class AStar {
@@ -14,13 +16,15 @@ public class AStar {
     private final int sizeX;
     private final int sizeY;
     private final boolean[][] isWall;
+    private LinkedList<ColouredNode> changes;
 
-    public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall) {
+    public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes) {
         this.start = start;
         this.end = end;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.isWall = isWall;
+        this.changes = changes;
     }
 
     public ArrayList<Node> solve() {
@@ -53,6 +57,9 @@ public class AStar {
                 continue;
             }
 
+            // Add node to changes list as handled
+            changes.add(new ColouredNode(cx, cy, 6));
+
             closed[cx][cy] = true;
             // Check if we have reached the end
             if (cx == end.getX() && cy == end.getY()) {
@@ -72,6 +79,12 @@ public class AStar {
                 double cnCost = (cx - nx == 0 || cy - ny == 0) ? 1 : SQRT2;
                 double ng = gScore[cx][cy] + cnCost;
 
+                if (!opened[nx][ny]) {
+                    // Add node to changes list as discovered. Node will be added
+                    // to the list only when it is discovered for the first time
+                    // since discovering it again wouldn't make any changes to GUI.
+                    changes.add(new ColouredNode(nx, ny, 5));
+                }
                 // Changes are made to neighbor if this is the first time we
                 // discover it or if the new g is lower than the previously stored one.
                 if (!opened[nx][ny] || ng < gScore[nx][ny]) {

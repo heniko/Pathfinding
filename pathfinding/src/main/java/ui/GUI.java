@@ -1,6 +1,7 @@
 package ui;
 
 import graph.Graph;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
 public class GUI extends Application {
 
     // Constants for graph size
-    private final int SIZE_X = 25, SIZE_Y = 25, NODE_SIZE = 30;
+    private final int SIZE_X = 40, SIZE_Y = 40, NODE_SIZE = 25;
     private GraphicsContext gc;
     /*
     0 = Empty
@@ -38,6 +39,8 @@ public class GUI extends Application {
         Color.GREEN,
         Color.RED,
         Color.BLACK,
+        Color.PURPLE,
+        Color.BLUE,
         Color.YELLOW
     };
     private int selectedNodeType;
@@ -94,6 +97,21 @@ public class GUI extends Application {
             changeNode(event);
             drawNodes();
         });
+
+        final AnimationTimer timer = new AnimationTimer() {
+            long lastChange = 0;
+
+            @Override
+            public void handle(long now) {
+                if (now - lastChange > 100000) {
+                    graph.visualisationTick();
+                    lastChange = now;
+                    drawNodes();
+                }
+            }
+        };
+
+        timer.start();
 
         Button solveButton = new Button("Solve");
         solveButton.setOnAction((event) -> {

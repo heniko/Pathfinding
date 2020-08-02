@@ -2,6 +2,7 @@ package graph;
 
 import algorithms.AStar;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Handles changes to graph.
@@ -13,6 +14,8 @@ public final class Graph {
     private int startX, startY, endX, endY, sizeX, sizeY;
     private int[][] guiState;
     private boolean[][] isWall;
+    private LinkedList<ColouredNode> changes;
+    private ArrayList<Node> path;
 
     /**
      * Constructor for Graph
@@ -32,6 +35,8 @@ public final class Graph {
         this.isWall = new boolean[sizeX][sizeY];
         changeNode(this.startX, this.startY, 1);
         changeNode(this.endX, this.endY, 2);
+        this.changes = new LinkedList<>();
+        this.path = new ArrayList<>();
     }
 
     /**
@@ -182,15 +187,39 @@ public final class Graph {
     public void solve() {
         Node start = new Node(startX, startY);
         Node end = new Node(endX, endY);
-        AStar astar = new AStar(start, end, sizeX, sizeY, isWall);
-        ArrayList<Node> path = astar.solve();
-
+        changes = new LinkedList<>();
+        AStar astar = new AStar(start, end, sizeX, sizeY, isWall, changes);
+        path = astar.solve();
+        /*
         for (Node node : path) {
             int x = node.getX();
             int y = node.getY();
             if (!isStart(x, y) && !isEnd(x, y)) {
                 guiState[x][y] = 4;
             }
+        }
+         */
+    }
+
+    public void visualisationTick() {
+        // First we visualise how algorithm discovers and handles nodes and
+        // after that we show the path algorithm found
+        if (!changes.isEmpty()) {
+            ColouredNode change = changes.poll();
+            int cx = change.getX();
+            int cy = change.getY();
+            if (!isStart(cx, cy) && !isEnd(cx, cy)) {
+                guiState[cx][cy] = change.getColor();
+            }
+        } else if (!path.isEmpty()) {
+            for (Node node : path) {
+                int x = node.getX();
+                int y = node.getY();
+                if (!isStart(x, y) && !isEnd(x, y)) {
+                    guiState[x][y] = 4;
+                }
+            }
+            path = new ArrayList<>();
         }
     }
 }
