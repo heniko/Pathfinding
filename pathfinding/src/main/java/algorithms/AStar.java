@@ -17,14 +17,16 @@ public class AStar {
     private final int sizeY;
     private final boolean[][] isWall;
     private LinkedList<ColouredNode> changes;
+    private final Heuristic heuristic;
 
-    public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes) {
+    public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
         this.start = start;
         this.end = end;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.isWall = isWall;
         this.changes = changes;
+        this.heuristic = heuristic;
     }
 
     public ArrayList<Node> solve() {
@@ -43,7 +45,7 @@ public class AStar {
         // Start algorithms from start node
         gScore[start.getX()][start.getY()] = 0;
         opened[start.getX()][start.getY()] = true;
-        openList.add(new PriorityNode(start.getX(), start.getY(), heuristic(start.getX(), start.getY())));
+        openList.add(new PriorityNode(start.getX(), start.getY(), heuristic.getHValue(start.getX(), start.getY(), end.getX(), end.getY())));
 
         while (!openList.isEmpty()) {
             PriorityNode current = openList.poll();
@@ -89,7 +91,7 @@ public class AStar {
                 // discover it or if the new g is lower than the previously stored one.
                 if (!opened[nx][ny] || ng < gScore[nx][ny]) {
                     gScore[nx][ny] = ng;
-                    double nh = heuristic(nx, ny);
+                    double nh = heuristic.getHValue(nx, ny, end.getX(), end.getY());
                     parent[nx][ny] = new Node(cx, cy);
                     opened[nx][ny] = true;
                     openList.add(new PriorityNode(nx, ny, ng + nh));
@@ -99,20 +101,6 @@ public class AStar {
 
         // If we do not find a path empty list will be returned
         return new ArrayList<>();
-    }
-
-    private double heuristic(int x, int y) {
-        /*
-        Heuristic at the moment:
-        http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#diagonal-distance
-        
-        Planned since adding them shouldn't take much time:
-        http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#euclidean-distance
-        For Djikstra heuristic needs to just return 0.
-         */
-        double dx = Math.abs(x - end.getX());
-        double dy = Math.abs(y - end.getY());
-        return (dx + dy) + (SQRT2 - 2) * Math.min(dx, dy);
     }
 
     private ArrayList<Node> getAdjList(int x, int y) {

@@ -1,6 +1,10 @@
 package graph;
 
 import algorithms.AStar;
+import algorithms.DiagonalHeuristic;
+import algorithms.DjikstraHeuristic;
+import algorithms.EuclideanHeuristic;
+import algorithms.Heuristic;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -181,15 +185,31 @@ public final class Graph {
     }
 
     /**
-     * Solves graph with A*. Changes will be made to this method when other
-     * algorithms are added.
+     * Solves graph using algorithm given as parameter. 0 / Default = Djikstra,
+     * 1 = Euclidean distance A*, 2 = Diagonal distance A*
+     *
+     * @param algorithm chosen algorithm.
      */
-    public void solve() {
+    public void solve(int algorithm) {
         clean();
+
         Node start = new Node(startX, startY);
         Node end = new Node(endX, endY);
-        changes = new LinkedList<>();
-        AStar astar = new AStar(start, end, sizeX, sizeY, isWall, changes);
+
+        Heuristic heuristic = null;
+
+        switch (algorithm) {
+            case 1:
+                heuristic = new EuclideanHeuristic();
+                break;
+            case 2:
+                heuristic = new DiagonalHeuristic();
+                break;
+            default:
+                heuristic = new DjikstraHeuristic();
+                break;
+        }
+        AStar astar = new AStar(start, end, sizeX, sizeY, isWall, changes, heuristic);
         path = astar.solve();
     }
 

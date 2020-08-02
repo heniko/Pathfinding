@@ -3,13 +3,13 @@ package ui;
 import graph.Graph;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -33,6 +33,8 @@ public class GUI extends Application {
     2 = End
     3 = Wall
     4 = Path
+    5 = Discovered
+    6 = Handled
      */
     private final Color[] NODE_COLORS = new Color[]{
         Color.WHITE,
@@ -44,6 +46,7 @@ public class GUI extends Application {
         Color.YELLOW
     };
     private int selectedNodeType;
+    private int selectedAlgortihm;
     private int[][] state;
     private Graph graph;
 
@@ -53,6 +56,7 @@ public class GUI extends Application {
         Canvas canvas = new Canvas(SIZE_X * NODE_SIZE, SIZE_Y * NODE_SIZE);
         gc = canvas.getGraphicsContext2D();
         selectedNodeType = 0;
+        selectedAlgortihm = 0;
         state = new int[SIZE_X][SIZE_Y];
         graph = new Graph(state, SIZE_X, SIZE_Y);
         drawGrid();
@@ -81,11 +85,30 @@ public class GUI extends Application {
         wallNodeButton.setUserData(3);
 
         // Event listener for changing node type
-        nodeTypeGroup.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> observable, Toggle oldToggle, Toggle newToggle) -> {
-            if (nodeTypeGroup.getSelectedToggle() != null) {
-                int selected = Integer.parseInt(newToggle.getUserData().toString());
-                selectedNodeType = selected;
-            }
+        nodeTypeGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            int selected = Integer.parseInt(newValue.getUserData().toString());
+            selectedNodeType = selected;
+        });
+
+        // RadioButtons for selecting pathfinding algorithm
+        RadioButton djikstraButton = new RadioButton("Djikstra");
+        RadioButton euclideanAStarButton = new RadioButton("Euclidean dinstance A*");
+        RadioButton diagonalAStarButton = new RadioButton("Diagonal distance A*");
+        ToggleGroup algorithmGroup = new ToggleGroup();
+
+        djikstraButton.setToggleGroup(algorithmGroup);
+        euclideanAStarButton.setToggleGroup(algorithmGroup);
+        diagonalAStarButton.setToggleGroup(algorithmGroup);
+
+        djikstraButton.setSelected(true);
+
+        djikstraButton.setUserData(0);
+        euclideanAStarButton.setUserData(1);
+        diagonalAStarButton.setUserData(2);
+
+        algorithmGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            int value = Integer.parseInt(newValue.getUserData().toString());
+            selectedAlgortihm = value;
         });
 
         canvas.setOnMouseDragged((event) -> {
@@ -114,18 +137,32 @@ public class GUI extends Application {
         timer.start();
 
         Button solveButton = new Button("Solve");
-        solveButton.setOnAction((event) -> {
-            graph.solve();
+        solveButton.setOnAction((ActionEvent event) -> {
+            graph.solve(selectedAlgortihm);
             drawNodes();
         });
-        
+
         Button cleanButton = new Button("Clean");
-        cleanButton.setOnAction((event)-> {
+        cleanButton.setOnAction((event) -> {
             graph.clean();
             drawNodes();
         });
 
-        VBox menuItems = new VBox(emptyNodeButton, startNodeButton, endNodeButton, wallNodeButton, solveButton, cleanButton);
+        Label typeSelectorLabel = new Label("Type selector");
+        Label algorithmSelectorLabel = new Label("Algorithm selector");
+
+        VBox menuItems = new VBox(
+                typeSelectorLabel,
+                emptyNodeButton,
+                startNodeButton,
+                endNodeButton,
+                wallNodeButton,
+                algorithmSelectorLabel,
+                djikstraButton,
+                euclideanAStarButton,
+                diagonalAStarButton,
+                solveButton,
+                cleanButton);
         HBox root = new HBox(canvas, menuItems);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
