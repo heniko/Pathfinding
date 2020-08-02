@@ -185,22 +185,18 @@ public final class Graph {
      * algorithms are added.
      */
     public void solve() {
+        clean();
         Node start = new Node(startX, startY);
         Node end = new Node(endX, endY);
         changes = new LinkedList<>();
         AStar astar = new AStar(start, end, sizeX, sizeY, isWall, changes);
         path = astar.solve();
-        /*
-        for (Node node : path) {
-            int x = node.getX();
-            int y = node.getY();
-            if (!isStart(x, y) && !isEnd(x, y)) {
-                guiState[x][y] = 4;
-            }
-        }
-         */
     }
 
+    /**
+     * Visualisation tick will advance algorithm simulation by one change and at
+     * the end path will be drawn.
+     */
     public void visualisationTick() {
         // First we visualise how algorithm discovers and handles nodes and
         // after that we show the path algorithm found
@@ -220,6 +216,22 @@ public final class Graph {
                 }
             }
             path = new ArrayList<>();
+            changes = new LinkedList<>();
         }
+    }
+
+    /**
+     * Cleans changes made by pathfinding algorithm.
+     */
+    public void clean() {
+        path = new ArrayList<>();
+        changes = new LinkedList<>();
+        for (int x = 0; x < sizeX; x++) {
+            for (int y = 0; y < sizeY; y++) {
+                guiState[x][y] = isWall[x][y] ? 3 : 0;
+            }
+        }
+        guiState[startX][startY] = 1;
+        guiState[endX][endY] = 2;
     }
 }

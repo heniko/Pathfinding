@@ -118,8 +118,14 @@ public class GUI extends Application {
             graph.solve();
             drawNodes();
         });
+        
+        Button cleanButton = new Button("Clean");
+        cleanButton.setOnAction((event)-> {
+            graph.clean();
+            drawNodes();
+        });
 
-        VBox menuItems = new VBox(emptyNodeButton, startNodeButton, endNodeButton, wallNodeButton, solveButton);
+        VBox menuItems = new VBox(emptyNodeButton, startNodeButton, endNodeButton, wallNodeButton, solveButton, cleanButton);
         HBox root = new HBox(canvas, menuItems);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
