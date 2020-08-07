@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+/**
+ * A* pathfinding algorithm implementation.
+ *
+ * @author Niko Hernesniemi
+ */
 public class AStar {
 
     // SQRT2 is constant cost for diagonal moves
@@ -20,6 +25,18 @@ public class AStar {
     private final Heuristic heuristic;
     private double pathLength;
 
+    /**
+     * Constructor for AStar.
+     *
+     * @param start Start node
+     * @param end End node
+     * @param sizeX Size of the graph in x-axis
+     * @param sizeY Size of the boar in y-axis
+     * @param isWall Information about walls for algorithm
+     * @param changes Logger for keeping track of the changes needed in order to
+     * visualise the algorithm
+     * @param heuristic Heuristic for calculating h-value of the node
+     */
     public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
         this.start = start;
         this.end = end;
@@ -31,10 +48,22 @@ public class AStar {
         this.pathLength = 0;
     }
 
+    /**
+     * Gets the path length. If no path exists returns 0. If graph isn't solved
+     * before getting graph length it will also be 0.
+     *
+     * @return Path length.
+     */
     public double getPathLength() {
         return pathLength;
     }
 
+    /**
+     * Finds path between start and end nodes if there exists one.
+     *
+     * @return List containing all visited nodes while travelling from start to
+     * end. Contains start and end.
+     */
     public ArrayList<Node> solve() {
         // Keeps track of nodes that have been opened. This was needed because
         // gScore values are initialized to 0.
