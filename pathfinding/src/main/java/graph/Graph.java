@@ -4,7 +4,7 @@ import algorithms.AStar;
 import algorithms.DiagonalHeuristic;
 import algorithms.DjikstraHeuristic;
 import algorithms.EuclideanHeuristic;
-import algorithms.Heuristic;
+import algorithms.JPS;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -196,21 +196,20 @@ public final class Graph {
         Node start = new Node(startX, startY);
         Node end = new Node(endX, endY);
 
-        Heuristic heuristic = null;
-
         switch (algorithm) {
             case 1:
-                heuristic = new EuclideanHeuristic();
+                path = new AStar(start, end, sizeX, sizeY, isWall, changes, new EuclideanHeuristic()).solve();
                 break;
             case 2:
-                heuristic = new DiagonalHeuristic();
+                path = new AStar(start, end, sizeX, sizeY, isWall, changes, new DiagonalHeuristic()).solve();
+                break;
+            case 3:
+                path = new JPS(start, end, sizeX, sizeY, isWall, changes, new EuclideanHeuristic()).solve();
                 break;
             default:
-                heuristic = new DjikstraHeuristic();
+                path = new AStar(start, end, sizeX, sizeY, isWall, changes, new DjikstraHeuristic()).solve();
                 break;
         }
-        AStar astar = new AStar(start, end, sizeX, sizeY, isWall, changes, heuristic);
-        path = astar.solve();
     }
 
     /**
@@ -237,6 +236,7 @@ public final class Graph {
             }
             path = new ArrayList<>();
             changes = new LinkedList<>();
+            System.out.println("DONE");
         }
     }
 

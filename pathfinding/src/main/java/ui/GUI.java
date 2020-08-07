@@ -43,7 +43,8 @@ public class GUI extends Application {
         Color.BLACK,
         Color.PURPLE,
         Color.BLUE,
-        Color.YELLOW
+        Color.YELLOW,
+        Color.BISQUE
     };
     private int selectedNodeType;
     private int selectedAlgortihm;
@@ -94,17 +95,20 @@ public class GUI extends Application {
         RadioButton djikstraButton = new RadioButton("Djikstra");
         RadioButton euclideanAStarButton = new RadioButton("Euclidean dinstance A*");
         RadioButton diagonalAStarButton = new RadioButton("Diagonal distance A*");
+        RadioButton jpsButton = new RadioButton("JPS");
         ToggleGroup algorithmGroup = new ToggleGroup();
 
         djikstraButton.setToggleGroup(algorithmGroup);
         euclideanAStarButton.setToggleGroup(algorithmGroup);
         diagonalAStarButton.setToggleGroup(algorithmGroup);
+        jpsButton.setToggleGroup(algorithmGroup);
 
         djikstraButton.setSelected(true);
 
         djikstraButton.setUserData(0);
         euclideanAStarButton.setUserData(1);
         diagonalAStarButton.setUserData(2);
+        jpsButton.setUserData(3);
 
         algorithmGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             int value = Integer.parseInt(newValue.getUserData().toString());
@@ -161,6 +165,7 @@ public class GUI extends Application {
                 djikstraButton,
                 euclideanAStarButton,
                 diagonalAStarButton,
+                jpsButton,
                 solveButton,
                 cleanButton);
         HBox root = new HBox(canvas, menuItems);
