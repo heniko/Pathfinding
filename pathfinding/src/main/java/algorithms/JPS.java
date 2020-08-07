@@ -117,12 +117,12 @@ public class JPS {
         P: Parent
         C: Current
         #: Wall
-        
+
         Forced JP example for vertical/horizontal
         | |P|#|
         | |C| |
         | | | |
-        
+
         For diagonals we need to do horizontal and vertical checks with jump()
         |P| |#| |
         | |C| |1|
@@ -319,7 +319,7 @@ public class JPS {
         5 |  4  | 3
         (For now at least) we are not going to allow skipping corners
         so if for example 2 is a wall then 1 would not be adjacent.
-        
+
         Offsets:
         x-1,y+1|x,y+1|x+1,y+1
         x-1,y  |node |x+1,y

@@ -8,7 +8,7 @@ package algorithms;
 public class EuclideanHeuristic implements Heuristic {
 
     /**
-     * Constructor for EuclideanHeuristic
+     * Constructor for EuclideanHeuristic.
      */
     public EuclideanHeuristic() {
     }

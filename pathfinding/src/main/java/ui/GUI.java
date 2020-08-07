@@ -126,7 +126,7 @@ public class GUI extends Application {
         });
 
         final AnimationTimer timer = new AnimationTimer() {
-            long lastChange = 0;
+            private long lastChange = 0;
 
             @Override
             public void handle(long now) {

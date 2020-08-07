@@ -7,10 +7,11 @@ package graph;
  */
 public class Node {
 
-    private final int x, y;
+    private final int x;
+    private final int y;
 
     /**
-     * Constructor for Node
+     * Constructor for Node.
      *
      * @param x x-axis coordinate
      * @param y y-axis coordinate
@@ -21,7 +22,7 @@ public class Node {
     }
 
     /**
-     * Gets x-axis coordinate
+     * Gets x-axis coordinate.
      *
      * @return x-axis coordinate
      */
@@ -30,7 +31,7 @@ public class Node {
     }
 
     /**
-     * Gets y-axis coordinate
+     * Gets y-axis coordinate.
      *
      * @return y-axis coordinate
      */

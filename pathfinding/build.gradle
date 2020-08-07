@@ -4,6 +4,8 @@ plugins {
     id 'application'
 
     id 'jacoco'
+
+    id 'checkstyle'
 }
 
 mainClassName = 'Main'
@@ -21,6 +23,30 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = true
     }
+}
+
+checkstyle {
+
+  project.ext.checkstyleVersion = '8.35'
+  project.ext.sevntuChecksVersion = '1.37.1'
+
+  ignoreFailures = true
+  configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+
+  checkstyleMain {
+    source = sourceSets.main.allSource
+  }
+
+  configurations {
+    checkstyle
+  }
+
+  dependencies{
+    assert project.hasProperty("checkstyleVersion")
+
+    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
+    checkstyle "com.github.sevntu-checkstyle:sevntu-checks:${sevntuChecksVersion}"
+  }
 }
 
 jar {

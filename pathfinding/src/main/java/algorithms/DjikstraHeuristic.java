@@ -8,7 +8,7 @@ package algorithms;
 public class DjikstraHeuristic implements Heuristic {
 
     /**
-     * Constructor for DjikstraHeuristic
+     * Constructor for DjikstraHeuristic.
      */
     public DjikstraHeuristic() {
     }

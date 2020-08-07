@@ -10,7 +10,7 @@ public class PriorityNode extends Node implements Comparable<PriorityNode> {
     private final double priority;
 
     /**
-     * Constructor for PriorityNode
+     * Constructor for PriorityNode.
      *
      * @param x x-axis coordinate
      * @param y y-axis coordinate
@@ -22,16 +22,16 @@ public class PriorityNode extends Node implements Comparable<PriorityNode> {
     }
 
     /**
-     * Gets priority of PriorityNode
+     * Gets priority of PriorityNode.
      *
-     * @return
+     * @return priority of the node
      */
     public double getPriority() {
         return priority;
     }
 
     /**
-     * Compares this node to other node
+     * Compares this node to other node.
      *
      * @param node node compared to
      * @return -1 if this node has higher priority than the node given as

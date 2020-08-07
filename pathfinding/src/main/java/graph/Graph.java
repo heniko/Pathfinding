@@ -22,7 +22,7 @@ public final class Graph {
     private ArrayList<Node> path;
 
     /**
-     * Constructor for Graph
+     * Constructor for Graph.
      *
      * @param guiState
      * @param sizeX Width of the graph
@@ -44,7 +44,7 @@ public final class Graph {
     }
 
     /**
-     * Gets isWall array
+     * Gets isWall array.
      *
      * @return 2d array that contains information about walls
      */
@@ -53,7 +53,7 @@ public final class Graph {
     }
 
     /**
-     * Gets width of the graph
+     * Gets width of the graph.
      *
      * @return width of the graph
      */
@@ -62,7 +62,7 @@ public final class Graph {
     }
 
     /**
-     * Gets height of the graph
+     * Gets height of the graph.
      *
      * @return height of the graph
      */
@@ -71,7 +71,7 @@ public final class Graph {
     }
 
     /**
-     * Gets end x-coordinate
+     * Gets end x-coordinate.
      *
      * @return end x-coordinate
      */
@@ -80,7 +80,7 @@ public final class Graph {
     }
 
     /**
-     * Gets end y-coordinate
+     * Gets end y-coordinate.
      *
      * @return end y-coordinate
      */
@@ -89,7 +89,7 @@ public final class Graph {
     }
 
     /**
-     * Gets start x-coordinate
+     * Gets start x-coordinate.
      *
      * @return start x-coordinate
      */
@@ -98,7 +98,7 @@ public final class Graph {
     }
 
     /**
-     * Gets start y-coordinate
+     * Gets start y-coordinate.
      *
      * @return start y-coordinate
      */
@@ -107,7 +107,7 @@ public final class Graph {
     }
 
     /**
-     * Changes node type in given coordinates if change is valid
+     * Changes node type in given coordinates if change is valid.
      *
      * @param x x-coordinate of change
      * @param y y-coordinate of change
@@ -186,7 +186,7 @@ public final class Graph {
 
     /**
      * Solves graph using algorithm given as parameter. 0 / Default = Djikstra,
-     * 1 = Euclidean distance A*, 2 = Diagonal distance A*
+     * 1 = Euclidean distance A*, 2 = Diagonal distance A*, 3 = JPS.
      *
      * @param algorithm chosen algorithm.
      */

@@ -10,7 +10,7 @@ public class DiagonalHeuristic implements Heuristic {
     private double SQRT2 = Math.sqrt(2);
 
     /**
-     * Constructor for DiagonalHeuristic
+     * Constructor for DiagonalHeuristic.
      */
     public DiagonalHeuristic() {
     }

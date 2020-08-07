@@ -11,6 +11,7 @@ public class ColouredNode extends Node {
     private final int color;
 
     /**
+     * Constructor for ColouredNode.
      *
      * @param x x-coordinate position
      * @param y y-coordinate position
@@ -22,7 +23,7 @@ public class ColouredNode extends Node {
     }
 
     /**
-     * Gets colour value of node
+     * Gets colour value of node.
      *
      * @return colour value
      */

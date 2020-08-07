@@ -148,7 +148,7 @@ public class AStar {
         5 |  4  | 3
         (For now at least) we are not going to allow skipping corners
         so if for example 2 is a wall then 1 would not be adjacent.
-        
+
         Offsets:
         x-1,y+1|x,y+1|x+1,y+1
         x-1,y  |node |x+1,y
