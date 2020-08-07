@@ -18,6 +18,7 @@ public class AStar {
     private final boolean[][] isWall;
     private LinkedList<ColouredNode> changes;
     private final Heuristic heuristic;
+    private double pathLength;
 
     public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
         this.start = start;
@@ -27,6 +28,11 @@ public class AStar {
         this.isWall = isWall;
         this.changes = changes;
         this.heuristic = heuristic;
+        this.pathLength = 0;
+    }
+
+    public double getPathLength() {
+        return pathLength;
     }
 
     public ArrayList<Node> solve() {
@@ -65,6 +71,7 @@ public class AStar {
             closed[cx][cy] = true;
             // Check if we have reached the end
             if (cx == end.getX() && cy == end.getY()) {
+                pathLength = gScore[end.getX()][end.getY()];
                 return reconstructPath(parent);
             }
             ArrayList<Node> adjList = getAdjList(cx, cy);
