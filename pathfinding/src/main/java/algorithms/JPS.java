@@ -374,10 +374,27 @@ public class JPS {
     private ArrayList<Node> reconstructPath(Node[][] parent) {
         ArrayList<Node> path = new ArrayList<>();
         Node current = end;
-        while (current != null) {
+        Node next = parent[end.getX()][end.getY()];
+        while (next != null) {
+            // Add current to path
             path.add(current);
-            current = parent[current.getX()][current.getY()];
+            // Get direction to next node
+            int dx = getNormalizedDirection(current.getX(), next.getX());
+            int dy = getNormalizedDirection(current.getY(), next.getY());
+            // Add all nodes between current and next to path
+            int x = current.getX();
+            int y = current.getY();
+            while (x != next.getX() || y != next.getY()) {
+                x += dx;
+                y += dy;
+                path.add(new Node(x, y));
+            }
+            // current = next, next = parent of current
+            current = next;
+            next = parent[current.getX()][current.getY()];
         }
+        // Add start to path since it will not be added in loop
+        path.add(start);
         return path;
     }
 }
