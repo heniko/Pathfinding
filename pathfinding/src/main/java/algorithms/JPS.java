@@ -20,7 +20,6 @@ public class JPS {
     private final boolean[][] isWall;
     private LinkedList<ColouredNode> changes;
     private final Heuristic heuristic;
-    private int recursion;
 
     public JPS(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
         this.start = start;
@@ -30,7 +29,6 @@ public class JPS {
         this.isWall = isWall;
         this.changes = changes;
         this.heuristic = heuristic;
-        this.recursion = 0;
     }
 
     public ArrayList<Node> solve() {
@@ -60,7 +58,6 @@ public class JPS {
             closed[cx][cy] = true;
 
             if (cx == end.getX() && cy == end.getY()) {
-                System.out.println(recursion);
                 return reconstructPath(parent);
             }
 
@@ -95,7 +92,6 @@ public class JPS {
                 }
             }
         }
-        System.out.println(recursion);
         return new ArrayList<>();
     }
 
@@ -106,7 +102,6 @@ public class JPS {
             return null;
         }
 
-        recursion++;
         changes.add(new ColouredNode(x, y, 7));
 
         /*
@@ -153,15 +148,15 @@ public class JPS {
             |#|?| |
              */
 
-            boolean topForcedJP = isInsideGraph(x + dx, y + 1) && isWall[x - dx][y + 1] && !isWall[x][y + 1];
-            boolean bottomForcedJP = isInsideGraph(x + dx, y - 1) && isWall[x - dx][y - 1] && !isWall[x][y - 1];
+            boolean topForcedJP = isInsideGraph(x, y + 1) && isWall[x - dx][y + 1] && !isWall[x][y + 1];
+            boolean bottomForcedJP = isInsideGraph(x, y - 1) && isWall[x - dx][y - 1] && !isWall[x][y - 1];
 
             if (topForcedJP || bottomForcedJP) {
                 return new Node(x, y);
             }
         } else if (dy != 0) {
-            boolean leftForcedJP = isInsideGraph(x + 1, y + dy) && isWall[x + 1][y - dy] && !isWall[x + 1][y];
-            boolean rightForcedJP = isInsideGraph(x - 1, y + dy) && isWall[x - 1][y - dy] && !isWall[x - 1][y];
+            boolean leftForcedJP = isInsideGraph(x + 1, y) && isWall[x + 1][y - dy] && !isWall[x + 1][y];
+            boolean rightForcedJP = isInsideGraph(x - 1, y) && isWall[x - 1][y - dy] && !isWall[x - 1][y];
 
             if (leftForcedJP || rightForcedJP) {
                 return new Node(x, y);

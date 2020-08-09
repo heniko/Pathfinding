@@ -236,7 +236,6 @@ public final class Graph {
             }
             path = new ArrayList<>();
             changes = new LinkedList<>();
-            System.out.println("DONE");
         }
     }
 
