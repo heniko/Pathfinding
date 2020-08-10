@@ -1,4 +1,4 @@
-package algorithms;
+package heniko.pathfinding.domain;
 
 /**
  * Euclidean distance heuristic.

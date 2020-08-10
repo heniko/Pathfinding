@@ -1,6 +1,6 @@
-package ui;
+package heniko.pathfinding.ui;
 
-import graph.Graph;
+import heniko.pathfinding.controller.Graph;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

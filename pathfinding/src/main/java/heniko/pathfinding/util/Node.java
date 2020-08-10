@@ -1,4 +1,4 @@
-package graph;
+package heniko.pathfinding.util;
 
 /**
  * Represents point in graph.

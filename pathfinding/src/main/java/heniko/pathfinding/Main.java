@@ -1,6 +1,7 @@
+package heniko.pathfinding;
 
 import javafx.application.Application;
-import ui.GUI;
+import heniko.pathfinding.ui.GUI;
 
 public class Main {
 

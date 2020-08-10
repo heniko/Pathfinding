@@ -1,7 +1,7 @@
-package algorithms;
+package heniko.pathfinding.domain;
 
-import graph.ColouredNode;
-import graph.Node;
+import heniko.pathfinding.util.ColouredNode;
+import heniko.pathfinding.util.Node;
 import java.util.LinkedList;
 import org.junit.Test;
 import static org.junit.Assert.*;

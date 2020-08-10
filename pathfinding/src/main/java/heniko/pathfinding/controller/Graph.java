@@ -1,10 +1,12 @@
-package graph;
+package heniko.pathfinding.controller;
 
-import algorithms.AStar;
-import algorithms.DiagonalHeuristic;
-import algorithms.DjikstraHeuristic;
-import algorithms.EuclideanHeuristic;
-import algorithms.JPS;
+import heniko.pathfinding.util.ColouredNode;
+import heniko.pathfinding.util.Node;
+import heniko.pathfinding.domain.AStar;
+import heniko.pathfinding.domain.DiagonalHeuristic;
+import heniko.pathfinding.domain.DjikstraHeuristic;
+import heniko.pathfinding.domain.EuclideanHeuristic;
+import heniko.pathfinding.domain.JPS;
 import java.util.ArrayList;
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package graph;
+package heniko.pathfinding.util;
 
 /**
  * Node with additional integer for storing GUI changes needed for visualising

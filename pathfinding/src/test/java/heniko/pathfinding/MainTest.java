@@ -1,3 +1,4 @@
+package heniko.pathfinding;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

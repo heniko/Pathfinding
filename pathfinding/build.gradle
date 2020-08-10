@@ -8,7 +8,7 @@ plugins {
     id 'checkstyle'
 }
 
-mainClassName = 'Main'
+mainClassName = 'heniko.pathfinding.Main'
 
 repositories {
     jcenter()
@@ -51,7 +51,7 @@ checkstyle {
 
 jar {
     manifest{
-        attributes 'Main-Class' : 'Main'
+        attributes 'Main-Class' : 'heniko.pathfinding.Main'
     }
 }
 

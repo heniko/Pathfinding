@@ -1,8 +1,8 @@
-package algorithms;
+package heniko.pathfinding.domain;
 
-import graph.ColouredNode;
-import graph.Node;
-import graph.PriorityNode;
+import heniko.pathfinding.util.ColouredNode;
+import heniko.pathfinding.util.Node;
+import heniko.pathfinding.util.PriorityNode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;

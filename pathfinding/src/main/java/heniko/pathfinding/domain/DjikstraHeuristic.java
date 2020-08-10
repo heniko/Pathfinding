@@ -1,4 +1,4 @@
-package algorithms;
+package heniko.pathfinding.domain;
 
 /**
  * Djikstra heuristic for A*.

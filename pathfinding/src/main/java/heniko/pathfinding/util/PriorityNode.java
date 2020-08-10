@@ -1,4 +1,4 @@
-package graph;
+package heniko.pathfinding.util;
 
 /**
  * Node with added comparable priority.
