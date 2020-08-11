@@ -8,25 +8,14 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
- * A* pathfinding algorithm implementation.
+ * {@inheritDoc} This implementation uses A*.
  *
  * @author Niko Hernesniemi
  */
-public class AStar {
-
-    // SQRT2 is constant cost for diagonal moves
-    private final double SQRT2 = Math.sqrt(2);
-    private final Node start;
-    private final Node end;
-    private final int sizeX;
-    private final int sizeY;
-    private final boolean[][] isWall;
-    private LinkedList<ColouredNode> changes;
-    private final Heuristic heuristic;
-    private double pathLength;
+public final class AStar extends Pathfinder {
 
     /**
-     * Constructor for AStar.
+     * Constructor for A* pathfinding algorithm.
      *
      * @param start Start node
      * @param end End node
@@ -38,32 +27,13 @@ public class AStar {
      * @param heuristic Heuristic for calculating h-value of the node
      */
     public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
-        this.start = start;
-        this.end = end;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.isWall = isWall;
-        this.changes = changes;
-        this.heuristic = heuristic;
-        this.pathLength = 0;
+        super(start, end, sizeX, sizeY, isWall, changes, heuristic);
     }
 
     /**
-     * Gets the path length. If no path exists returns 0. If graph isn't solved
-     * before getting graph length it will also be 0.
-     *
-     * @return Path length.
+     * {@inheritDoc} A* pathfinding algorithm will be used.
      */
-    public double getPathLength() {
-        return pathLength;
-    }
-
-    /**
-     * Finds path between start and end nodes if there exists one.
-     *
-     * @return List containing all visited nodes while travelling from start to
-     * end. Contains start and end.
-     */
+    @Override
     public ArrayList<Node> solve() {
         // Keeps track of nodes that have been opened. This was needed because
         // gScore values are initialized to 0.
@@ -137,71 +107,6 @@ public class AStar {
 
         // If we do not find a path empty list will be returned
         return new ArrayList<>();
-    }
-
-    private ArrayList<Node> getAdjList(int x, int y) {
-        ArrayList<Node> adjList = new ArrayList<>();
-        /*
-        Edge numbers
-        7 |  0  | 1
-        6 |node | 2
-        5 |  4  | 3
-        (For now at least) we are not going to allow skipping corners
-        so if for example 2 is a wall then 1 would not be adjacent.
-
-        Offsets:
-        x-1,y+1|x,y+1|x+1,y+1
-        x-1,y  |node |x+1,y
-        x-1,y-1|x,y-1|x+1,y-1
-         */
-        boolean e0 = false, e2 = false, e4 = false, e6 = false;
-
-        // Check vertical and horizon
-        if (isInsideGraph(x, y + 1) && !isWall[x][y + 1]) {
-            e0 = true;
-        }
-        if (isInsideGraph(x + 1, y) && !isWall[x + 1][y]) {
-            e2 = true;
-        }
-        if (isInsideGraph(x, y - 1) && !isWall[x][y - 1]) {
-            e4 = true;
-        }
-        if (isInsideGraph(x - 1, y) && !isWall[x - 1][y]) {
-            e6 = true;
-        }
-
-        // Add vertical and horizontal adjacent nodes
-        if (e0) {
-            adjList.add(new Node(x, y + 1));
-        }
-        if (e2) {
-            adjList.add(new Node(x + 1, y));
-        }
-        if (e4) {
-            adjList.add(new Node(x, y - 1));
-        }
-        if (e6) {
-            adjList.add(new Node(x - 1, y));
-        }
-
-        // Add diagonal adjacent nodes to list
-        if (e0 && e2 && !isWall[x + 1][y + 1]) {
-            adjList.add(new Node(x + 1, y + 1));
-        }
-        if (e2 && e4 && !isWall[x + 1][y - 1]) {
-            adjList.add(new Node(x + 1, y - 1));
-        }
-        if (e4 && e6 && !isWall[x - 1][y - 1]) {
-            adjList.add(new Node(x - 1, y - 1));
-        }
-        if (e0 && e6 && !isWall[x - 1][y + 1]) {
-            adjList.add(new Node(x - 1, y + 1));
-        }
-        return adjList;
-    }
-
-    private boolean isInsideGraph(int x, int y) {
-        return !(x < 0 || y < 0 || x >= sizeX || y >= sizeY);
     }
 
     private ArrayList<Node> reconstructPath(Node[][] parent) {
