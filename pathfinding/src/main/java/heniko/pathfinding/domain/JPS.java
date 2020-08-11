@@ -61,6 +61,7 @@ public final class JPS extends Pathfinder {
             closed[cx][cy] = true;
 
             if (cx == end.getX() && cy == end.getY()) {
+                pathLength = gScore[end.getX()][end.getY()];
                 return reconstructPath(parent);
             }
 
