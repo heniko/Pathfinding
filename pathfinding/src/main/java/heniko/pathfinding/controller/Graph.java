@@ -7,6 +7,7 @@ import heniko.pathfinding.domain.DiagonalHeuristic;
 import heniko.pathfinding.domain.DjikstraHeuristic;
 import heniko.pathfinding.domain.EuclideanHeuristic;
 import heniko.pathfinding.domain.JPS;
+import heniko.pathfinding.domain.Pathfinder;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -197,21 +198,24 @@ public final class Graph {
 
         Node start = new Node(startX, startY);
         Node end = new Node(endX, endY);
+        Pathfinder pf;
 
         switch (algorithm) {
             case 1:
-                path = new AStar(start, end, sizeX, sizeY, isWall, changes, new EuclideanHeuristic()).solve();
+                pf = new AStar(start, end, sizeX, sizeY, isWall, changes, new EuclideanHeuristic());
                 break;
             case 2:
-                path = new AStar(start, end, sizeX, sizeY, isWall, changes, new DiagonalHeuristic()).solve();
+                pf = new AStar(start, end, sizeX, sizeY, isWall, changes, new DiagonalHeuristic());
                 break;
             case 3:
-                path = new JPS(start, end, sizeX, sizeY, isWall, changes, new EuclideanHeuristic()).solve();
+                pf = new JPS(start, end, sizeX, sizeY, isWall, changes, new EuclideanHeuristic());
                 break;
             default:
-                path = new AStar(start, end, sizeX, sizeY, isWall, changes, new DjikstraHeuristic()).solve();
+                pf = new AStar(start, end, sizeX, sizeY, isWall, changes, new DjikstraHeuristic());
                 break;
         }
+
+        path = pf.solve();
     }
 
     /**
