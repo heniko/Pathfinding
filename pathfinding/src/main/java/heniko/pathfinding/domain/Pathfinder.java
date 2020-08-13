@@ -2,7 +2,6 @@ package heniko.pathfinding.domain;
 
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -51,7 +50,7 @@ public abstract class Pathfinder {
      * @return Path as a list of nodes. Contains start and end nodes. Empty list
      * will be returned is path doesn't exist.
      */
-    public abstract ArrayList<Node> solve();
+    public abstract List<Node> solve();
 
     /**
      * Gets the path length. If no path exists returns 0. If graph isn't solved
@@ -70,8 +69,8 @@ public abstract class Pathfinder {
      * @param y y-coordinate.
      * @return List containing the adjacent nodes.
      */
-    protected ArrayList<Node> getAdjList(int x, int y) {
-        ArrayList<Node> adjList = new ArrayList<>();
+    protected List<Node> getAdjList(int x, int y) {
+        List<Node> adjList = new List<>();
         /*
         Edge numbers
         7 |  0  | 1

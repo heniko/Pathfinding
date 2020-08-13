@@ -43,6 +43,15 @@ public class List<E> {
     }
 
     /**
+     * Checks if list has no items.
+     *
+     * @return True if list is empty.
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
      * Adds element to the end of the list. Automatically increases max size of
      * the list if needed.
      *

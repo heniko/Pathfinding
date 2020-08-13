@@ -7,6 +7,7 @@ import heniko.pathfinding.domain.DiagonalHeuristic;
 import heniko.pathfinding.domain.DjikstraHeuristic;
 import heniko.pathfinding.domain.EuclideanHeuristic;
 import heniko.pathfinding.domain.JPS;
+import heniko.pathfinding.domain.List;
 import heniko.pathfinding.domain.Pathfinder;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,7 +23,7 @@ public final class Graph {
     private int[][] guiState;
     private boolean[][] isWall;
     private LinkedList<ColouredNode> changes;
-    private ArrayList<Node> path;
+    private List<Node> path;
 
     /**
      * Constructor for Graph.
@@ -43,7 +44,7 @@ public final class Graph {
         changeNode(this.startX, this.startY, 1);
         changeNode(this.endX, this.endY, 2);
         this.changes = new LinkedList<>();
-        this.path = new ArrayList<>();
+        this.path = new List<>();
     }
 
     /**
@@ -233,14 +234,15 @@ public final class Graph {
                 guiState[cx][cy] = change.getColor();
             }
         } else if (!path.isEmpty()) {
-            for (Node node : path) {
+            for (int i = 0; i < path.getSize(); i++) {
+                Node node = path.get(i);
                 int x = node.getX();
                 int y = node.getY();
                 if (!isStart(x, y) && !isEnd(x, y)) {
                     guiState[x][y] = 4;
                 }
             }
-            path = new ArrayList<>();
+            path = new List<>();
             changes = new LinkedList<>();
         }
     }
@@ -249,7 +251,7 @@ public final class Graph {
      * Cleans changes made by pathfinding algorithm.
      */
     public void clean() {
-        path = new ArrayList<>();
+        path = new List<>();
         changes = new LinkedList<>();
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {

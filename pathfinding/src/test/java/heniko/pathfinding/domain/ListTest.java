@@ -82,4 +82,13 @@ public class ListTest {
         assertEquals(element, 3);
         assertEquals(list.getSize(), 0);
     }
+
+    @Test
+    public void isEmptyTest() {
+        assertEquals(list.isEmpty(), true);
+        list.push(2);
+        assertEquals(list.isEmpty(), false);
+        list.pop();
+        assertEquals(list.isEmpty(), true);
+    }
 }

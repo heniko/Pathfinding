@@ -3,7 +3,6 @@ package heniko.pathfinding.domain;
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
 import heniko.pathfinding.util.PriorityNode;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -34,7 +33,7 @@ public final class JPS extends Pathfinder {
      * {@inheritDoc} Jump point search pathfinding algorithm will be used.
      */
     @Override
-    public ArrayList<Node> solve() {
+    public List<Node> solve() {
         Heuristic jumpCostHeuristic = new DiagonalHeuristic();
         boolean[][] opened = new boolean[sizeX][sizeY];
         boolean[][] closed = new boolean[sizeX][sizeY];
@@ -65,8 +64,9 @@ public final class JPS extends Pathfinder {
                 return reconstructPath(parent);
             }
 
-            ArrayList<Node> adjList = getAdjList(cx, cy, parent);
-            for (Node neighbor : adjList) {
+            List<Node> adjList = getAdjList(cx, cy, parent);
+            for (int i = 0; i < adjList.getSize(); i++) {
+                Node neighbor = adjList.get(i);
                 int nx = neighbor.getX();
                 int ny = neighbor.getY();
 
@@ -96,7 +96,7 @@ public final class JPS extends Pathfinder {
                 }
             }
         }
-        return new ArrayList<>();
+        return new List<>();
     }
 
     private Node jump(int x, int y, int px, int py) {
@@ -171,13 +171,13 @@ public final class JPS extends Pathfinder {
         return jump(x + dx, y + dy, x, y);
     }
 
-    private ArrayList<Node> getAdjList(int x, int y, Node[][] parent) {
+    private List<Node> getAdjList(int x, int y, Node[][] parent) {
         // For start we need all adjacent nodes.
         if (parent[x][y] == null) {
             return super.getAdjList(x, y);
         }
 
-        ArrayList<Node> al = new ArrayList<>();
+        List<Node> al = new List<>();
 
         // Normalized directions in x and y axis
         int dx = getNormalizedDirection(parent[x][y].getX(), x);
@@ -284,8 +284,8 @@ public final class JPS extends Pathfinder {
         return al;
     }
 
-    private ArrayList<Node> reconstructPath(Node[][] parent) {
-        ArrayList<Node> path = new ArrayList<>();
+    private List<Node> reconstructPath(Node[][] parent) {
+        List<Node> path = new List<>();
         Node current = end;
         Node next = parent[end.getX()][end.getY()];
         while (next != null) {

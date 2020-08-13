@@ -3,7 +3,6 @@ package heniko.pathfinding.domain;
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
 import heniko.pathfinding.util.PriorityNode;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -34,7 +33,7 @@ public final class AStar extends Pathfinder {
      * {@inheritDoc} A* pathfinding algorithm will be used.
      */
     @Override
-    public ArrayList<Node> solve() {
+    public List<Node> solve() {
         // Keeps track of nodes that have been opened. This was needed because
         // gScore values are initialized to 0.
         boolean[][] opened = new boolean[sizeX][sizeY];
@@ -73,8 +72,9 @@ public final class AStar extends Pathfinder {
                 pathLength = gScore[end.getX()][end.getY()];
                 return reconstructPath(parent);
             }
-            ArrayList<Node> adjList = getAdjList(cx, cy);
-            for (Node neighbor : adjList) {
+            List<Node> adjList = getAdjList(cx, cy);
+            for (int i = 0; i < adjList.getSize(); i++) {
+                Node neighbor = adjList.get(i);
                 int nx = neighbor.getX();
                 int ny = neighbor.getY();
 
@@ -106,11 +106,11 @@ public final class AStar extends Pathfinder {
         }
 
         // If we do not find a path empty list will be returned
-        return new ArrayList<>();
+        return new List<>();
     }
 
-    private ArrayList<Node> reconstructPath(Node[][] parent) {
-        ArrayList<Node> path = new ArrayList<>();
+    private List<Node> reconstructPath(Node[][] parent) {
+        List<Node> path = new List<>();
         Node current = end;
         while (current != null) {
             path.add(current);
