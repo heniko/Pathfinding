@@ -9,7 +9,6 @@ import heniko.pathfinding.domain.EuclideanHeuristic;
 import heniko.pathfinding.domain.JPS;
 import heniko.pathfinding.domain.List;
 import heniko.pathfinding.domain.Pathfinder;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
