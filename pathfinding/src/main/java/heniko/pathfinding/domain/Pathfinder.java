@@ -183,7 +183,7 @@ public abstract class Pathfinder {
      * Logs GUI changes needed for visualising pathfinding algorithms.
      *
      * @param x X-coordinate.
-     * @param y -Y-coordinate.
+     * @param y Y-coordinate.
      * @param color Change type.
      */
     protected void logChange(int x, int y, int color) {
