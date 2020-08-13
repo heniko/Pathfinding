@@ -19,10 +19,10 @@ public class ListTest {
     }
 
     @Test
-    public void endQueueTest() {
-        assertEquals(list.getSize(), 0);
+    public void addElementTest() {
+        assertEquals(list.size(), 0);
         list.add(5);
-        assertEquals(list.getSize(), 1);
+        assertEquals(list.size(), 1);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class ListTest {
         list.add(9);
         list.add(11);
         list.add(42);
-        assertEquals(list.getSize(), 5);
+        assertEquals(list.size(), 5);
         int element = list.get(4);
         assertEquals(element, 42);
     }
@@ -80,7 +80,7 @@ public class ListTest {
         assertEquals(element, 6);
         element = list.pop();
         assertEquals(element, 3);
-        assertEquals(list.getSize(), 0);
+        assertEquals(list.size(), 0);
     }
 
     @Test
@@ -90,5 +90,63 @@ public class ListTest {
         assertEquals(list.isEmpty(), false);
         list.pop();
         assertEquals(list.isEmpty(), true);
+    }
+
+    @Test
+    public void queueTest() {
+        list.endQueue(3);
+        list.endQueue(6);
+        list.endQueue(9);
+        int element = list.deQueue();
+        assertEquals(element, 3);
+        element = list.deQueue();
+        assertEquals(element, 6);
+        list.endQueue(7);
+        element = list.deQueue();
+        assertEquals(element, 9);
+        element = list.deQueue();
+        assertEquals(element, 7);
+    }
+
+    @Test
+    public void deQueueAndGetTest() {
+        list.add(5);
+        list.add(8);
+        list.add(1);
+        list.deQueue();
+        int element = list.get(0);
+        assertEquals(element, 8);
+    }
+
+    @Test
+    public void deQueueAndPopTest() {
+        list.add(5);
+        list.add(8);
+        list.add(1);
+        list.deQueue();
+        int element = list.pop();
+        assertEquals(element, 1);
+    }
+
+    @Test
+    public void deQueueAndPutTest() {
+        list.add(5);
+        list.add(8);
+        list.add(1);
+        list.deQueue();
+        list.put(0, 2);
+        int element = list.get(0);
+        assertEquals(element, 2);
+    }
+    
+    @Test
+    public void deQueueAndSwapTest() {
+        list.add(5);
+        list.add(8);
+        list.add(1);
+        list.deQueue();
+        list.swap(0, 1);
+        int element = list.get(0);
+        assertEquals(element, 1);
     }
 }

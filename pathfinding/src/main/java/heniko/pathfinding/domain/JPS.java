@@ -65,7 +65,7 @@ public final class JPS extends Pathfinder {
             }
 
             List<Node> adjList = getAdjList(cx, cy, parent);
-            for (int i = 0; i < adjList.getSize(); i++) {
+            for (int i = 0; i < adjList.size(); i++) {
                 Node neighbor = adjList.get(i);
                 int nx = neighbor.getX();
                 int ny = neighbor.getY();

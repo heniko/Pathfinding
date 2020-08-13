@@ -73,7 +73,7 @@ public final class AStar extends Pathfinder {
                 return reconstructPath(parent);
             }
             List<Node> adjList = getAdjList(cx, cy);
-            for (int i = 0; i < adjList.getSize(); i++) {
+            for (int i = 0; i < adjList.size(); i++) {
                 Node neighbor = adjList.get(i);
                 int nx = neighbor.getX();
                 int ny = neighbor.getY();

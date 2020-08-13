@@ -233,7 +233,7 @@ public final class Graph {
                 guiState[cx][cy] = change.getColor();
             }
         } else if (!path.isEmpty()) {
-            for (int i = 0; i < path.getSize(); i++) {
+            for (int i = 0; i < path.size(); i++) {
                 Node node = path.get(i);
                 int x = node.getX();
                 int y = node.getY();

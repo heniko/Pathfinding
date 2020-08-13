@@ -1,7 +1,7 @@
 package heniko.pathfinding.domain;
 
 /**
- * Simple generic list.
+ * Simple generic list implementation. Can work as list, stack or queue.
  *
  * @author Niko Hernesniemi
  */
@@ -9,7 +9,8 @@ public class List<E> {
 
     private Object[] array;
     private int maxSize;
-    private int size;
+    private int startInd;
+    private int endInd;
 
     /**
      * Constructor for List.
@@ -30,6 +31,8 @@ public class List<E> {
      * Creates new list with default initial max size.
      */
     public List() {
+        // Default size of 8 was chosen because that is the max needed length of 
+        // adjacency list.
         this(8);
     }
 
@@ -38,8 +41,8 @@ public class List<E> {
      *
      * @return Number of elements.
      */
-    public int getSize() {
-        return size;
+    public int size() {
+        return endInd - startInd;
     }
 
     /**
@@ -48,7 +51,7 @@ public class List<E> {
      * @return True if list is empty.
      */
     public boolean isEmpty() {
-        return size == 0;
+        return size() == 0;
     }
 
     /**
@@ -58,11 +61,11 @@ public class List<E> {
      * @param element New element.
      */
     public void add(E element) {
-        if (size == maxSize) {
+        if (endInd == maxSize) {
             grow();
         }
-        array[size] = element;
-        size++;
+        array[endInd] = element;
+        endInd++;
     }
 
     /**
@@ -72,8 +75,10 @@ public class List<E> {
      * @return Element in given index.
      * @throws IndexOutOfBoundsException Index was out of bounds.
      */
+    @SuppressWarnings("unchecked")
     public E get(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index >= size) {
+        index += startInd;
+        if (!isInsideList(index)) {
             throw new IndexOutOfBoundsException();
         }
         return (E) array[index];
@@ -88,7 +93,9 @@ public class List<E> {
      * bounds.
      */
     public void swap(int index1, int index2) throws IndexOutOfBoundsException {
-        if (index1 < 0 || index2 < 0 || index1 >= size || index2 >= size) {
+        index1 += startInd;
+        index2 += startInd;
+        if (!isInsideList(index1) || !isInsideList(index2)) {
             throw new IndexOutOfBoundsException();
         }
         Object o = array[index1];
@@ -104,7 +111,8 @@ public class List<E> {
      * @throws IndexOutOfBoundsException Given index is outside of the list.
      */
     public void put(int index, E element) throws IndexOutOfBoundsException {
-        if (index < 0 || index >= size) {
+        index += startInd;
+        if (!isInsideList(index)) {
             throw new IndexOutOfBoundsException();
         }
         array[index] = element;
@@ -125,12 +133,37 @@ public class List<E> {
      * @return Last element of the list.
      * @throws IndexOutOfBoundsException List has no elements.
      */
+    @SuppressWarnings("unchecked")
     public E pop() throws IndexOutOfBoundsException {
-        if (size < 1) {
+        if (isEmpty()) {
             throw new IndexOutOfBoundsException();
         }
-        size--;
-        return (E) array[size];
+        endInd--;
+        return (E) array[endInd];
+    }
+
+    /**
+     * Adds new element to the end of the queue.
+     *
+     * @param element New element.
+     */
+    public void endQueue(E element) {
+        add(element);
+    }
+
+    /**
+     * Gets and removes the first element in the queue.
+     *
+     * @return First element in queue.
+     * @throws IndexOutOfBoundsException If list is empty.
+     */
+    @SuppressWarnings("unchecked")
+    public E deQueue() throws IndexOutOfBoundsException {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException();
+        }
+        startInd++;
+        return (E) array[startInd - 1];
     }
 
     private void grow() {
@@ -144,5 +177,9 @@ public class List<E> {
 
         maxSize = newMaxSize;
         array = newArray;
+    }
+
+    private boolean isInsideList(int index) {
+        return !(index < startInd || index >= endInd);
     }
 }
