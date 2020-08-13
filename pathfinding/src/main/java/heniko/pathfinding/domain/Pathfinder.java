@@ -2,7 +2,6 @@ package heniko.pathfinding.domain;
 
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
-import java.util.LinkedList;
 
 /**
  * Pathfinding algorithm.
@@ -17,7 +16,7 @@ public abstract class Pathfinder {
     protected final int sizeX;
     protected final int sizeY;
     protected final boolean[][] isWall;
-    protected final LinkedList<ColouredNode> changes;
+    protected final List<ColouredNode> changes;
     protected final Heuristic heuristic;
     protected double pathLength;
 
@@ -33,7 +32,7 @@ public abstract class Pathfinder {
      * visualise the algorithm
      * @param heuristic Heuristic for calculating h-value of the node
      */
-    public Pathfinder(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
+    public Pathfinder(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, List<ColouredNode> changes, Heuristic heuristic) {
         this.start = start;
         this.end = end;
         this.sizeX = sizeX;
@@ -178,5 +177,16 @@ public abstract class Pathfinder {
         int dx = dest - src;
         // Math.max to prevent division by zero
         return dx / Math.max(Math.abs(dx), 1);
+    }
+    
+    /**
+     * 
+     * 
+     * @param x X-coordinate.
+     * @param y -Y-coordinate.
+     * @param color Change type.
+     */
+    protected void logChange(int x, int y, int color) {
+        changes.endQueue(new ColouredNode(x, y, color));
     }
 }

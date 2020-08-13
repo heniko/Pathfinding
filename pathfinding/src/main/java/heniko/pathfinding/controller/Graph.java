@@ -9,7 +9,6 @@ import heniko.pathfinding.domain.EuclideanHeuristic;
 import heniko.pathfinding.domain.JPS;
 import heniko.pathfinding.domain.List;
 import heniko.pathfinding.domain.Pathfinder;
-import java.util.LinkedList;
 
 /**
  * Handles changes to graph.
@@ -21,7 +20,7 @@ public final class Graph {
     private int startX, startY, endX, endY, sizeX, sizeY;
     private int[][] guiState;
     private boolean[][] isWall;
-    private LinkedList<ColouredNode> changes;
+    private List<ColouredNode> changes;
     private List<Node> path;
 
     /**
@@ -42,7 +41,7 @@ public final class Graph {
         this.isWall = new boolean[sizeX][sizeY];
         changeNode(this.startX, this.startY, 1);
         changeNode(this.endX, this.endY, 2);
-        this.changes = new LinkedList<>();
+        this.changes = new List<>();
         this.path = new List<>();
     }
 
@@ -226,7 +225,7 @@ public final class Graph {
         // First we visualise how algorithm discovers and handles nodes and
         // after that we show the path algorithm found
         if (!changes.isEmpty()) {
-            ColouredNode change = changes.poll();
+            ColouredNode change = changes.deQueue();
             int cx = change.getX();
             int cy = change.getY();
             if (!isStart(cx, cy) && !isEnd(cx, cy)) {
@@ -242,7 +241,7 @@ public final class Graph {
                 }
             }
             path = new List<>();
-            changes = new LinkedList<>();
+            changes = new List<>();
         }
     }
 
@@ -251,7 +250,7 @@ public final class Graph {
      */
     public void clean() {
         path = new List<>();
-        changes = new LinkedList<>();
+        changes = new List<>();
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 guiState[x][y] = isWall[x][y] ? 3 : 0;

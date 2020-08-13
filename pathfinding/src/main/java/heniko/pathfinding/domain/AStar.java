@@ -3,7 +3,6 @@ package heniko.pathfinding.domain;
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
 import heniko.pathfinding.util.PriorityNode;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -25,7 +24,7 @@ public final class AStar extends Pathfinder {
      * visualise the algorithm
      * @param heuristic Heuristic for calculating h-value of the node
      */
-    public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
+    public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, List<ColouredNode> changes, Heuristic heuristic) {
         super(start, end, sizeX, sizeY, isWall, changes, heuristic);
     }
 
@@ -64,7 +63,7 @@ public final class AStar extends Pathfinder {
             }
 
             // Add node to changes list as handled
-            changes.add(new ColouredNode(cx, cy, 6));
+            logChange(cx, cy, 6);
 
             closed[cx][cy] = true;
             // Check if we have reached the end
@@ -91,7 +90,7 @@ public final class AStar extends Pathfinder {
                     // Add node to changes list as discovered. Node will be added
                     // to the list only when it is discovered for the first time
                     // since discovering it again wouldn't make any changes to GUI.
-                    changes.add(new ColouredNode(nx, ny, 5));
+                    logChange(nx, ny, 5);
                 }
                 // Changes are made to neighbor if this is the first time we
                 // discover it or if the new g is lower than the previously stored one.

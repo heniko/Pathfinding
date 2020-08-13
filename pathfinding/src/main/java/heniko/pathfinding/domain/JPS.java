@@ -3,7 +3,6 @@ package heniko.pathfinding.domain;
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
 import heniko.pathfinding.util.PriorityNode;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -25,7 +24,7 @@ public final class JPS extends Pathfinder {
      * visualise the algorithm
      * @param heuristic Heuristic for calculating h-value of the node
      */
-    public JPS(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, LinkedList<ColouredNode> changes, Heuristic heuristic) {
+    public JPS(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, List<ColouredNode> changes, Heuristic heuristic) {
         super(start, end, sizeX, sizeY, isWall, changes, heuristic);
     }
 
@@ -55,7 +54,7 @@ public final class JPS extends Pathfinder {
                 continue;
             }
 
-            changes.add(new ColouredNode(cx, cy, 6));
+            logChange(cx, cy, 6);
 
             closed[cx][cy] = true;
 
@@ -83,7 +82,7 @@ public final class JPS extends Pathfinder {
                     double jg = gScore[cx][cy] + jumpCostHeuristic.getHValue(cx, cy, jx, jy);
 
                     if (!opened[jx][jy]) {
-                        changes.add(new ColouredNode(jx, jy, 5));
+                        logChange(jx, jy, 5);
                     }
 
                     if (!opened[jx][jy] || jg < gScore[jx][jy]) {
@@ -106,7 +105,7 @@ public final class JPS extends Pathfinder {
             return null;
         }
 
-        changes.add(new ColouredNode(x, y, 7));
+        logChange(x, y, 7);
 
         /*
         Node will be jump point if:
