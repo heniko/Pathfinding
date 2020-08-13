@@ -178,10 +178,10 @@ public abstract class Pathfinder {
         // Math.max to prevent division by zero
         return dx / Math.max(Math.abs(dx), 1);
     }
-    
+
     /**
-     * 
-     * 
+     * Logs GUI changes needed for visualising pathfinding algorithms.
+     *
      * @param x X-coordinate.
      * @param y -Y-coordinate.
      * @param color Change type.
