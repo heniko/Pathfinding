@@ -2,9 +2,9 @@
 
 ## Documentation
 
-[Project definition](https://github.com/heniko/Pathfinding/blob/master/Documentation/Project_definition.md)
-[Testing document](https://github.com/heniko/Pathfinding/blob/master/Documentation/Testing_document.md)
-[Implementation document](https://github.com/heniko/Pathfinding/blob/master/Documentation/Implementation_document.md)
+### [Project definition](https://github.com/heniko/Pathfinding/blob/master/Documentation/Project_definition.md)
+### [Testing document](https://github.com/heniko/Pathfinding/blob/master/Documentation/Testing_document.md)
+### [Implementation document](https://github.com/heniko/Pathfinding/blob/master/Documentation/Implementation_document.md)
 
 ## Weekly reports
 
