@@ -20,4 +20,5 @@ I would like to add better visualization of algorithms to GUI and it shouldn't b
 Support for running pathfinding algorithms on graphs given as images would be nice for testing. For example some [Moving AI Lab street maps](https://www.movingai.com/benchmarks/street/index.html) would be nice to use.
 
 ## Time spent
+
 20h

@@ -12,4 +12,5 @@
 JPS was pretty late addition and still needs some work. After finishing JPS I will start replacing data structures with my own ones. Code needs some cleaning too and after data structures/before code review would probably be good time for that.
 
 ## Time spent
+
 23h
