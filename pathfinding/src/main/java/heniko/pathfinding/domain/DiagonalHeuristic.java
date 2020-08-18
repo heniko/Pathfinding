@@ -1,5 +1,7 @@
 package heniko.pathfinding.domain;
 
+import heniko.pathfinding.util.Mathematics;
+
 /**
  * Diagonal distance heuristic.
  *
@@ -28,9 +30,9 @@ public class DiagonalHeuristic implements Heuristic {
     public double getHValue(int sx, int sy, int ex, int ey) {
         // Based on:
         // http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html#diagonal-distance
-        double dx = Math.abs(sx - ex);
-        double dy = Math.abs(sy - ey);
-        return (dx + dy) + (SQRT2 - 2) * Math.min(dx, dy);
+        double dx = Mathematics.abs(sx - ex);
+        double dy = Mathematics.abs(sy - ey);
+        return (dx + dy) + (SQRT2 - 2) * Mathematics.min(dx, dy);
     }
 
 }

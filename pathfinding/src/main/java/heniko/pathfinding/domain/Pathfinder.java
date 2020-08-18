@@ -1,6 +1,7 @@
 package heniko.pathfinding.domain;
 
 import heniko.pathfinding.util.ColouredNode;
+import heniko.pathfinding.util.Mathematics;
 import heniko.pathfinding.util.Node;
 
 /**
@@ -176,7 +177,7 @@ public abstract class Pathfinder {
         // Should return -1, 0 or 1 as direction
         int dx = dest - src;
         // Math.max to prevent division by zero
-        return dx / Math.max(Math.abs(dx), 1);
+        return dx / Mathematics.max(Mathematics.abs(dx), 1);
     }
 
     /**
