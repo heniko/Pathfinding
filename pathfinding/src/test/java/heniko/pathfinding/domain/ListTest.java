@@ -94,57 +94,57 @@ public class ListTest {
 
     @Test
     public void queueTest() {
-        list.endQueue(3);
-        list.endQueue(6);
-        list.endQueue(9);
-        int element = list.deQueue();
+        list.enqueue(3);
+        list.enqueue(6);
+        list.enqueue(9);
+        int element = list.dequeue();
         assertEquals(element, 3);
-        element = list.deQueue();
+        element = list.dequeue();
         assertEquals(element, 6);
-        list.endQueue(7);
-        element = list.deQueue();
+        list.enqueue(7);
+        element = list.dequeue();
         assertEquals(element, 9);
-        element = list.deQueue();
+        element = list.dequeue();
         assertEquals(element, 7);
     }
 
     @Test
-    public void deQueueAndGetTest() {
+    public void dequeueAndGetTest() {
         list.add(5);
         list.add(8);
         list.add(1);
-        list.deQueue();
+        list.dequeue();
         int element = list.get(0);
         assertEquals(element, 8);
     }
 
     @Test
-    public void deQueueAndPopTest() {
+    public void dequeueAndPopTest() {
         list.add(5);
         list.add(8);
         list.add(1);
-        list.deQueue();
+        list.dequeue();
         int element = list.pop();
         assertEquals(element, 1);
     }
 
     @Test
-    public void deQueueAndPutTest() {
+    public void dequeueAndPutTest() {
         list.add(5);
         list.add(8);
         list.add(1);
-        list.deQueue();
+        list.dequeue();
         list.put(0, 2);
         int element = list.get(0);
         assertEquals(element, 2);
     }
-    
+
     @Test
-    public void deQueueAndSwapTest() {
+    public void dequeueAndSwapTest() {
         list.add(5);
         list.add(8);
         list.add(1);
-        list.deQueue();
+        list.dequeue();
         list.swap(0, 1);
         int element = list.get(0);
         assertEquals(element, 1);

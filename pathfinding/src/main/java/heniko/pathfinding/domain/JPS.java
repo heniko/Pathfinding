@@ -3,7 +3,6 @@ package heniko.pathfinding.domain;
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
 import heniko.pathfinding.util.PriorityNode;
-import java.util.PriorityQueue;
 
 /**
  * {@inheritDoc} This implementation uses jump point search.
@@ -36,7 +35,7 @@ public final class JPS extends Pathfinder {
         Heuristic jumpCostHeuristic = new DiagonalHeuristic();
         boolean[][] opened = new boolean[sizeX][sizeY];
         boolean[][] closed = new boolean[sizeX][sizeY];
-        PriorityQueue<PriorityNode> openList = new PriorityQueue<>();
+        NodeHeap openList = new NodeHeap();
         Node[][] parent = new Node[sizeX][sizeY];
         double[][] gScore = new double[sizeX][sizeY];
 

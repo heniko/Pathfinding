@@ -225,7 +225,7 @@ public final class Graph {
         // First we visualise how algorithm discovers and handles nodes and
         // after that we show the path algorithm found
         if (!changes.isEmpty()) {
-            ColouredNode change = changes.deQueue();
+            ColouredNode change = changes.dequeue();
             int cx = change.getX();
             int cy = change.getY();
             if (!isStart(cx, cy) && !isEnd(cx, cy)) {

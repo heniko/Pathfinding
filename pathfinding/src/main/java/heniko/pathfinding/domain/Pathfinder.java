@@ -187,6 +187,6 @@ public abstract class Pathfinder {
      * @param color Change type.
      */
     protected void logChange(int x, int y, int color) {
-        changes.endQueue(new ColouredNode(x, y, color));
+        changes.enqueue(new ColouredNode(x, y, color));
     }
 }

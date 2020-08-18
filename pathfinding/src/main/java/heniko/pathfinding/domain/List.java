@@ -147,7 +147,7 @@ public class List<E> {
      *
      * @param element New element.
      */
-    public void endQueue(E element) {
+    public void enqueue(E element) {
         add(element);
     }
 
@@ -158,7 +158,7 @@ public class List<E> {
      * @throws IndexOutOfBoundsException If list is empty.
      */
     @SuppressWarnings("unchecked")
-    public E deQueue() throws IndexOutOfBoundsException {
+    public E dequeue() throws IndexOutOfBoundsException {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException();
         }

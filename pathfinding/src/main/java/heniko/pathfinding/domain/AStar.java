@@ -3,7 +3,6 @@ package heniko.pathfinding.domain;
 import heniko.pathfinding.util.ColouredNode;
 import heniko.pathfinding.util.Node;
 import heniko.pathfinding.util.PriorityNode;
-import java.util.PriorityQueue;
 
 /**
  * {@inheritDoc} This implementation uses A*.
@@ -39,7 +38,7 @@ public final class AStar extends Pathfinder {
         // Keeps track of nodes that have been already handled.
         boolean[][] closed = new boolean[sizeX][sizeY];
         // Holds discovered nodes
-        PriorityQueue<PriorityNode> openList = new PriorityQueue<>();
+        NodeHeap openList = new NodeHeap();
         // This will keep track of the path
         Node[][] parent = new Node[sizeX][sizeY];
         // Keeps track of the current g of each node

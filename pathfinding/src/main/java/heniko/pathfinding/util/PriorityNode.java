@@ -5,7 +5,7 @@ package heniko.pathfinding.util;
  *
  * @author Niko Hernesniemi
  */
-public class PriorityNode extends Node implements Comparable<PriorityNode> {
+public class PriorityNode extends Node {
 
     private final double priority;
 
@@ -28,20 +28,5 @@ public class PriorityNode extends Node implements Comparable<PriorityNode> {
      */
     public double getPriority() {
         return priority;
-    }
-
-    /**
-     * Compares this node to other node.
-     *
-     * @param node node compared to
-     * @return -1 if this node has higher priority than the node given as
-     * parameter and 1 otherwise
-     */
-    @Override
-    public int compareTo(PriorityNode node) {
-        if (priority <= node.getPriority()) {
-            return -1;
-        }
-        return 1;
     }
 }
