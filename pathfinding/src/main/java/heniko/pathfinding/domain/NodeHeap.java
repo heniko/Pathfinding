@@ -12,10 +12,19 @@ public class NodeHeap {
     private List<PriorityNode> heap;
 
     /**
-     * Constructor for NodeHeap.
+     * Constructor for heap.
+     *
+     * @param initialSize Initial size of the heap List.
+     */
+    public NodeHeap(int initialSize) {
+        this.heap = new List<>(initialSize);
+    }
+
+    /**
+     * Default constructor for NodeHeap.
      */
     public NodeHeap() {
-        this.heap = new List<>(32);
+        this(32);
     }
 
     /**
