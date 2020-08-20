@@ -165,16 +165,34 @@ public class List<E> {
         startInd++;
         return (E) array[startInd - 1];
     }
+    
+    /**
+     * Reverses the list.
+     */
+    public void reverse() {
+        Object[] reversed = new Object[maxSize];
+        
+        for (int i = 0; i < size(); i++) {
+            reversed[i] = array[endInd - i - 1];
+        }
+        // Since we start from index 0 we can reset startInd and endInd.
+        // endInd first since startInd affects it.
+        endInd = size();
+        startInd = 0;
+        array = reversed;
+    }
 
     private void grow() {
         // Doubles the size of the array
         int newMaxSize = maxSize * 2;
         Object[] newArray = new Object[newMaxSize];
 
-        for (int i = 0; i < maxSize; i++) {
-            newArray[i] = array[i];
+        for (int i = 0; i < size(); i++) {
+            newArray[i] = array[i + startInd];
         }
 
+        endInd = size();
+        startInd = 0;
         maxSize = newMaxSize;
         array = newArray;
     }

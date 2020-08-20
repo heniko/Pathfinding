@@ -114,6 +114,7 @@ public final class AStar extends Pathfinder {
             path.add(current);
             current = parent[current.getX()][current.getY()];
         }
+        path.reverse();
         return path;
     }
 }

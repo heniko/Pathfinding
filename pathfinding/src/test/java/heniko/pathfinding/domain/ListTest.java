@@ -149,4 +149,32 @@ public class ListTest {
         int element = list.get(0);
         assertEquals(element, 1);
     }
+    
+    @Test
+    public void dequeAndGrow() {
+        list = new List<>(10);
+        list.enqueue(5);
+        list.enqueue(8);
+        list.enqueue(1);
+        list.dequeue();
+        for (int i = 0; i < 40; i++) {
+            list.enqueue(i);
+        }
+        int element = list.get(0);
+        assertEquals(element, 8);
+    }
+    
+    @Test
+    public void reverseTest() {
+        list.add(5);
+        list.add(8);
+        list.add(1);
+        list.reverse();
+        int element = list.get(0);
+        assertEquals(element, 1);
+        element = list.get(1);
+        assertEquals(element, 8);
+        element = list.get(2);
+        assertEquals(element, 5);
+    }
 }

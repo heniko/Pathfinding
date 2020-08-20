@@ -306,6 +306,7 @@ public final class JPS extends Pathfinder {
         }
         // Add start to path since it will not be added in loop
         path.add(start);
+        path.reverse();
         return path;
     }
 }
