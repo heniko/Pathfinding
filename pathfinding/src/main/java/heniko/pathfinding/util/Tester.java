@@ -5,7 +5,6 @@ import heniko.pathfinding.domain.DiagonalHeuristic;
 import heniko.pathfinding.domain.DjikstraHeuristic;
 import heniko.pathfinding.domain.EuclideanHeuristic;
 import heniko.pathfinding.domain.JPS;
-import heniko.pathfinding.domain.List;
 import heniko.pathfinding.domain.Pathfinder;
 import heniko.pathfinding.io.MapReader;
 import java.io.File;
@@ -19,8 +18,8 @@ import java.util.Random;
  */
 public class Tester {
 
-    private static long NANO_TO_MILLI = 1000000;
-    private ArrayList<String> lines;
+    private static final long NANO_TO_MILLI = 1000000;
+    private final ArrayList<String> lines;
 
     /**
      * Runs all performance tests and prints results.
@@ -122,19 +121,20 @@ public class Tester {
         lines.add("| Algorithm | Path length |");
         lines.add("|---|---|");
         // Djikstra
-        Pathfinder pf = new AStar(start, end, width, height, isWall, new List<>(), new DjikstraHeuristic());
+        Pathfinder pf;
+        pf = new AStar(start, end, width, height, isWall, new DjikstraHeuristic());
         pf.solve();
         lines.add("| Djikstra's algorithm | " + pf.getPathLength() + " |");
         // AStar euclidean
-        pf = new AStar(start, end, width, height, isWall, new List<>(), new EuclideanHeuristic());
+        pf = new AStar(start, end, width, height, isWall, new EuclideanHeuristic());
         pf.solve();
         lines.add("| Euclidean distance A* |" + pf.getPathLength() + " |");
         // Astar diagonal
-        pf = new AStar(start, end, width, height, isWall, new List<>(), new DiagonalHeuristic());
+        pf = new AStar(start, end, width, height, isWall, new DiagonalHeuristic());
         pf.solve();
         lines.add("| Diagonal distance A* |" + pf.getPathLength() + " |");
         // Jump point search
-        pf = new JPS(start, end, width, height, isWall, new List<>(), new EuclideanHeuristic());
+        pf = new JPS(start, end, width, height, isWall, new EuclideanHeuristic());
         pf.solve();
         lines.add("| Jump point search |" + pf.getPathLength() + " |");
 
@@ -147,16 +147,16 @@ public class Tester {
 
         for (int i = 0; i < numberOfTest; i++) {
             // Djikstra's algorithm
-            pf = new AStar(start, end, width, height, isWall, new List<>(), new DjikstraHeuristic());
+            pf = new AStar(start, end, width, height, isWall, new DjikstraHeuristic());
             djikstraRes[i] = timeToSolve(pf);
             // AStar euclidean
-            pf = new AStar(start, end, width, height, isWall, new List<>(), new EuclideanHeuristic());
+            pf = new AStar(start, end, width, height, isWall, new EuclideanHeuristic());
             eucRes[i] = timeToSolve(pf);
             // Astar diagonal
-            pf = new AStar(start, end, width, height, isWall, new List<>(), new DiagonalHeuristic());
+            pf = new AStar(start, end, width, height, isWall, new DiagonalHeuristic());
             diagRes[i] = timeToSolve(pf);
             // Jump point search
-            pf = new JPS(start, end, width, height, isWall, new List<>(), new EuclideanHeuristic());
+            pf = new JPS(start, end, width, height, isWall, new EuclideanHeuristic());
             jpsRes[i] = timeToSolve(pf);
         }
 

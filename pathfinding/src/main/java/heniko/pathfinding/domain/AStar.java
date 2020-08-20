@@ -28,6 +28,21 @@ public final class AStar extends Pathfinder {
     }
 
     /**
+     * Constructor for A* pathfinding algorithm. A* constructed with this
+     * constructor will not log changes.
+     *
+     * @param start Start node
+     * @param end End node
+     * @param sizeX Size of the graph in x-axis
+     * @param sizeY Size of the boar in y-axis
+     * @param isWall Information about walls for algorithm
+     * @param heuristic Heuristic for calculating h-value of the node
+     */
+    public AStar(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, Heuristic heuristic) {
+        super(start, end, sizeX, sizeY, isWall, heuristic);
+    }
+
+    /**
      * {@inheritDoc} A* pathfinding algorithm will be used.
      */
     @Override

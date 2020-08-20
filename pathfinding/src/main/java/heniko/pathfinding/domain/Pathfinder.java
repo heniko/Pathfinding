@@ -20,6 +20,7 @@ public abstract class Pathfinder {
     protected final List<ColouredNode> changes;
     protected final Heuristic heuristic;
     protected double pathLength;
+    protected boolean logging;
 
     /**
      * Constructor for abstract class Pathfinder.
@@ -42,6 +43,30 @@ public abstract class Pathfinder {
         this.changes = changes;
         this.heuristic = heuristic;
         this.pathLength = 0;
+        this.logging = true;
+    }
+
+    /**
+     * Constructor for abstract class Pathfinder. Pathfinder constructed with
+     * this constructor will not log changes.
+     *
+     * @param start Start node
+     * @param end End node
+     * @param sizeX Size of the graph in x-axis
+     * @param sizeY Size of the boar in y-axis
+     * @param isWall Information about walls for algorithm
+     * @param heuristic Heuristic for calculating h-value of the node
+     */
+    public Pathfinder(Node start, Node end, int sizeX, int sizeY, boolean[][] isWall, Heuristic heuristic) {
+        this.start = start;
+        this.end = end;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        this.isWall = isWall;
+        this.changes = new List<>();
+        this.heuristic = heuristic;
+        this.pathLength = 0;
+        this.logging = false;
     }
 
     /**
@@ -188,6 +213,8 @@ public abstract class Pathfinder {
      * @param color Change type.
      */
     protected void logChange(int x, int y, int color) {
-        changes.enqueue(new ColouredNode(x, y, color));
+        if (logging) {
+            changes.enqueue(new ColouredNode(x, y, color));
+        }
     }
 }
