@@ -29,13 +29,15 @@ public class Tester {
     }
 
     public void test() {
-        //testMap(new File("./data/Berlin_0_1024.map"), "Berlin_0_1024");
+        lines.add("");
+        testMap(new File("./data/Berlin_0_1024.map"), "Berlin_0_1024");
         lines.add("");
         testMap(new File("./data/16room_001.map"), "16room_001");
         lines.add("");
         testMap(new File("./data/64room_009.map"), "64room_009");
         lines.add("");
-        //testAndPrintSqrt();
+        testAndPrintSqrt();
+        lines.add("");
 
         for (String line : lines) {
             System.out.println(line);
@@ -116,7 +118,7 @@ public class Tester {
         Node end = new Node(height - 2, 1);
 
         // Print path lengths for each algorithm
-        lines.add("Statistics for each pathfinding algorithm in map: " + mapName);
+        lines.add("### Statistics for each pathfinding algorithm in map: " + mapName);
         lines.add("");
         lines.add("| Algorithm | Path length |");
         lines.add("|---|---|");
@@ -193,6 +195,7 @@ public class Tester {
             resultsOwn[i] = testOwnSqrt(iters);
         }
 
+        lines.add("### Math.sqrt and Mathematics.sqrt comparison");
         printStatisticsHeader("Implementation");
         printTimeStatistics(resultsJava, "Math.sqrt()");
         printTimeStatistics(resultsOwn, "Mathematics.sqrt()");
