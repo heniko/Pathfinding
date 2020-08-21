@@ -93,7 +93,7 @@ public class MapReader {
                 // If terrain is not passable
                 if (charray[j] == '@' || charray[j] == 'O') {
                     // Mark spot as wall
-                    map[i][j] = false;
+                    map[i][j] = true;
                 }
             }
         }

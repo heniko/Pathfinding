@@ -29,16 +29,65 @@ public class Tester {
     }
 
     public void test() {
+        int width, height;
+        Node start, end;
+        int numberOfTests = 100;
+        MapReader mr;
+        
+        // Berlin_0_1024 test
         lines.add("");
-        testMap(new File("./data/Berlin_0_1024.map"), "Berlin_0_1024");
+        mr = new MapReader(new File("./data/Berlin_0_1024.map"));
+        width = mr.getWidth();
+        height = mr.getHeight();
+        // All Moving AI Lab maps seem to have walls on the edges so we need
+        // to make sure we don't have our start or end inside walls.
+        start = new Node(5,5);
+        end = new Node(width - 6, height - 6);
+        testMap("Berlin_0_1024 (Has path)", mr.getMap(), width, height, numberOfTests, start, end);
+        
+        // Berlin_0_1024 test without possible path
         lines.add("");
-        testMap(new File("./data/16room_001.map"), "16room_001");
+        mr = new MapReader(new File("./data/Berlin_0_1024.map"));
+        width = mr.getWidth();
+        height = mr.getHeight();
+        // All Moving AI Lab maps seem to have walls on the edges so we need
+        // to make sure we don't have our start or end inside walls.
+        start = new Node(5, height - 6);
+        end = new Node(width - 6, 5);
+        testMap("Berlin_0_1024 (No path)", mr.getMap(), width, height, numberOfTests, start, end);
+        
+        // 16room_001 test
         lines.add("");
-        testMap(new File("./data/64room_009.map"), "64room_009");
+        mr = new MapReader(new File("./data/16room_001.map"));
+        width = mr.getWidth();
+        height = mr.getHeight();
+        start = new Node(5,5);
+        end = new Node(width - 6, height - 6);
+        testMap("16room_001", mr.getMap(), width, height, numberOfTests, start, end);
+        
+        // 64room_009 test
+        lines.add("");
+        mr = new MapReader(new File("./data/64room_009.map"));
+        width = mr.getWidth();
+        height = mr.getHeight();
+        start = new Node(5,5);
+        end = new Node(width - 6, height - 6);
+        testMap("64room_009", mr.getMap(), width, height, numberOfTests, start, end);
+        
+        // Empty map test
+        lines.add("");
+        width = 1024;
+        height = 1024;
+        start = new Node(0,0);
+        end = new Node(width - 1, height -1);
+        testMap("Empty", new boolean[width][height], width, height, numberOfTests, start, end);
+        
+        /*
+        // sqrt test
         lines.add("");
         testAndPrintSqrt();
         lines.add("");
-
+        */
         for (String line : lines) {
             System.out.println(line);
         }
@@ -108,17 +157,9 @@ public class Tester {
     /*
     Benchmarking different pathfinding algorithms
      */
-    private void testMap(File file, String mapName) {
-        MapReader mr = new MapReader(file);
-
-        int height = mr.getHeight();
-        int width = mr.getWidth();
-        boolean[][] isWall = mr.getMap();
-        Node start = new Node(1, width - 2);
-        Node end = new Node(height - 2, 1);
-
+    private void testMap(String mapName, boolean[][] isWall, int width, int height, int numberOfTests, Node start, Node end) {
         // Print path lengths for each algorithm
-        lines.add("### Statistics for each pathfinding algorithm in map: " + mapName);
+        lines.add("## Statistics for each pathfinding algorithm in map: " + mapName);
         lines.add("");
         lines.add("| Algorithm | Path length |");
         lines.add("|---|---|");
@@ -141,13 +182,12 @@ public class Tester {
         lines.add("| Jump point search |" + pf.getPathLength() + " |");
 
         // Actual performance testing starts here
-        int numberOfTest = 100;
-        long[] djikstraRes = new long[numberOfTest];
-        long[] eucRes = new long[numberOfTest];
-        long[] diagRes = new long[numberOfTest];
-        long[] jpsRes = new long[numberOfTest];
+        long[] djikstraRes = new long[numberOfTests];
+        long[] eucRes = new long[numberOfTests];
+        long[] diagRes = new long[numberOfTests];
+        long[] jpsRes = new long[numberOfTests];
 
-        for (int i = 0; i < numberOfTest; i++) {
+        for (int i = 0; i < numberOfTests; i++) {
             // Djikstra's algorithm
             pf = new AStar(start, end, width, height, isWall, new DjikstraHeuristic());
             djikstraRes[i] = timeToSolve(pf);
@@ -195,7 +235,7 @@ public class Tester {
             resultsOwn[i] = testOwnSqrt(iters);
         }
 
-        lines.add("### Math.sqrt and Mathematics.sqrt comparison");
+        lines.add("## Math.sqrt and Mathematics.sqrt comparison");
         printStatisticsHeader("Implementation");
         printTimeStatistics(resultsJava, "Math.sqrt()");
         printTimeStatistics(resultsOwn, "Mathematics.sqrt()");
