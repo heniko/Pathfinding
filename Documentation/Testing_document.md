@@ -7,6 +7,16 @@ gradle test
 gradle jacocoTestReport
 ```
 
+![jacocTestReport](https://github.com/heniko/Pathfinding/blob/master/Documentation/Pictures/cov.png)
+
+Only manual testing was done for UI.
+
+Controller tests mostly make sure that changes made in GUI are correctly applied everywhere. A lot of testing was also done manually.
+
+Most of the util coverage comes from testing class Mathematics. All of the methods in that class have good unit tests.
+
+List and NodeHeap in domain have really good test coverage and the tests should cover pretty much everything. AStar and JPS also have few unit tests to make sure they find the shortest paths in some really basic cases. However, more testing on AStar and JPS is done with performance testing. Those tests show that all algorithms find paths with same length on all test cases. Different heuristics also have unit tests to make sure that they return correct estimated lengths.
+
 # Running performance tests
 
 Running performance tests takes few minutes. Everything will be printed at once after running the tests. Results are meant to be viewed as markdown document.
@@ -27,7 +37,7 @@ gradle run --args='test' > filename.md
 
 Some maps used for performance testing are from [movingai.com](https://movingai.com/benchmarks/grids.html).
 
-While running performance tests we also check that all pathfinding algorithms find a path with roughly the same length. Jump point search will have slightly different path lengths due to rounding errors.
+While running performance tests we also check that all pathfinding algorithms find a path with roughly the same length. Jump point search (JPS) will have slightly different path lengths due to rounding errors.
 
 For pictures green circle marks start and red circle marks end.
 
@@ -124,6 +134,14 @@ This test is just empty map with starting position in the upper left corner and 
 | Euclidean distance A* | 1.69198 | 1.58591 | 16.82660 | 1.41966 |
 | Diagonal distance A* | 1.62933 | 0.58380 | 5.52220 | 1.42052 |
 | Jump point search | 11.32688 | 2.12559 | 31.29742 | 10.77134 |
+
+## Summary
+
+As expected Euclidean distance A* has worse performance than diagonal distance A* since it usually underestimates the remaining path length more. In the first test Euclidean A* was closer to Djikstra's algorithm than A* with diagonal heuristic. Diagonal distance A* beats Euclidean distance A* even in test 2 where they should handle the same amount of nodes.
+
+The only win for Djikstra's algorithm was test 2 where there was no path between start and end. It makes sense that Djikstra wins Euclidean and diagonal heuristic A* in this one since all algorithms should handle the same number of nodes and Djikstra has the smallest amount of code for handling each node.
+
+The only really bad test for JPS was test 2 where it had the worst performance of all algorithms. JPS was the fastest algorithm in tests 1, 3 and 4. It also performed really well on test 5 but just wasn't as good as Euclidean and diagonal heuristic A* (Reason for this can be pretty easily demonstrated on GUI version of this program). Worst case of these tests was test 2 where JPS had the worst performance of all algorithms. Best test cases for JPS were the room maps (tests 3 and 4) where it had way better performance than Djikstra or A*.
 
 # Math.sqrt() and Mathematics.sqrt() comparison
 
