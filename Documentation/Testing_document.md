@@ -71,7 +71,7 @@ Size of the map is 1024x1024.
 
 ## Statistics for each pathfinding algorithm in map: 16room_001
 
-![16room_001](https://github.com/heniko/Pathfinding/blob/master/Documentation/Pictures/16_room_001.png)
+![16room_001](https://github.com/heniko/Pathfinding/blob/master/Documentation/Pictures/16room_001.png)
 Size of the map is 512x512.
 
 | Algorithm | Path length |
@@ -90,7 +90,7 @@ Size of the map is 512x512.
 
 ## Statistics for each pathfinding algorithm in map: 64room_009
 
-![64room_009](https://github.com/heniko/Pathfinding/blob/master/Documentation/Pictures/16room_009.png)
+![64room_009](https://github.com/heniko/Pathfinding/blob/master/Documentation/Pictures/64room_009.png)
 Size of the map is 512x512.
 
 | Algorithm | Path length |
