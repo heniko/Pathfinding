@@ -2,7 +2,7 @@
 
 ## Documentation
 
-### [User guide](https://github.com/heniko/Pathfinding/blob/master/Documentation/User_guide.md.md)
+### [User guide](https://github.com/heniko/Pathfinding/blob/master/Documentation/User_guide.md)
 ### [Project definition](https://github.com/heniko/Pathfinding/blob/master/Documentation/Project_definition.md)
 ### [Testing document](https://github.com/heniko/Pathfinding/blob/master/Documentation/Testing_document.md)
 ### [Implementation document](https://github.com/heniko/Pathfinding/blob/master/Documentation/Implementation_document.md)
