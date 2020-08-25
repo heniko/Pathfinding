@@ -14,3 +14,4 @@
 * [Week #3](https://github.com/heniko/Pathfinding/blob/master/Documentation/Weekly_report_3.md)
 * [Week #4](https://github.com/heniko/Pathfinding/blob/master/Documentation/Weekly_report_4.md)
 * [Week #5](https://github.com/heniko/Pathfinding/blob/master/Documentation/Weekly_report_5.md)
+* [Week #6](https://github.com/heniko/Pathfinding/blob/master/Documentation/Weekly_report_6.md)
