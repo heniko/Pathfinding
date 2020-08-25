@@ -104,6 +104,16 @@ public final class JPS extends Pathfinder {
                         double jh = heuristic.getHValue(jx, jy, end.getX(), end.getY());
                         parent[jx][jy] = new Node(cx, cy);
                         opened[jx][jy] = true;
+                        /*
+                        Optimization to problem reported in peer review 1.
+                        Based on performance testing this wouldn't actually
+                        have that big impact to running time of the algorithm.
+                        
+                        if (jx == end.getX() && jy == end.getY()) {
+                            pathLength = gScore[end.getX()][end.getY()];
+                            return reconstructPath(parent);
+                        }
+                        */
                         openList.add(new PriorityNode(jx, jy, jg + jh));
                     }
                 }
