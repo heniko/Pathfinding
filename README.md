@@ -1,5 +1,7 @@
 # Pathfinding algorithms visualised
 
+[Data structures and algorithms project](https://tiralabra.github.io/loppukesa_2020/) course at the University of Helsinki. The course is over and project will likely not be updated.
+
 ## Documentation
 
 ### [User guide](https://github.com/heniko/Pathfinding/blob/master/Documentation/User_guide.md)
